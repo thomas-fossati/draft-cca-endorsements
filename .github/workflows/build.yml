@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    types: [closed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: yogeshbdeshpande/kdrfc:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: build draft and check for nits
+      run: _PUBLISH_DIR=public/${GITHUB_REF##*/} make all _pre-publish
+    - name: deploy to github pages
+      if: success() && github.event.pull_request.merged == true
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: public
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,8 @@
+<reference anchor="IANA_cbor_tags" target="http://www.iana.org/assignments/cbor-tags">
+  <front>
+    <title>Concise Binary Object Representation (CBOR) Tags</title>
+    <author>
+      <organization>IANA</organization>
+    </author>
+  </front>
+</reference>
