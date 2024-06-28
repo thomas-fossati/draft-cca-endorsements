@@ -35,7 +35,6 @@ author:
 
 
 normative:
-  PSA-TOKEN: I-D.tschofenig-rats-psa-token
 
   CoRIM: I-D.ietf-rats-corim
 
@@ -47,109 +46,110 @@ informative:
    title: PSA Certified
    date: 2021
 
+  CCA-TOKEN:
+   target: https://documentation-service.arm.com/static/63a16f163f28e5456434c719?token=
+   title: Realm Management Monitor specification
+   date: 2022
+
 --- abstract
 
 Arm Confidential Computing Architecture (Arm CCA) Endorsements comprise of reference values and cryptographic key material that a Verifier needs in order to
-appraise Attestation Evidence produced by an entity running on a Arm CCA system.
+appraise Attestation Evidence produced by Arm CCA system.
 
 --- middle
 
 # Introduction
 
-PSA Endorsements include reference values, cryptographic key material and
-certification status information that a Verifier needs in order to appraise
-attestation Evidence produced by a PSA device {{PSA-TOKEN}}.  This memo defines
-such PSA Endorsements as a profile of the CoRIM data model {{CoRIM}}.
+Arm CCA Endorsements include reference values and cryptographic key material 
+information that a Verifier needs in order to appraise
+attestation Evidence produced by a CCA System {{CCA-TOKEN}}.  This memo defines
+such CCA Endorsements as a profile of the CoRIM data model {{CoRIM}}.
 
 # Conventions and Definitions
 
 {::boilerplate bcp14}
 
-The reader is assumed to be familiar with the terms defined in Section 2.1 of
-{{PSA-TOKEN}} and in Section 4 of {{RATS-ARCH}}.
+The reader is assumed to be familiar with the terms defined in Section A7.2.1 of
+{{CCA-TOKEN}} and in Section 4 of {{RATS-ARCH}}.
 
-# PSA Endorsements
-{: #sec-psa-endorsements }
+# Arm CCA Endorsements
+{: #sec-cca-endorsements }
 
-PSA Endorsements describe an attesting device in terms of the hardware and
-firmware components that make up its PSA Root of Trust (RoT). This includes
-the identification and expected state of the device as well as the
-cryptographic key material needed to verify Evidence signed by the device's PSA
-RoT. Additionally, PSA Endorsements can include information related to the
-certification status of the attesting device.
+Arm CCA attestation scheme is a composite attestation scheme which comprises a CCA Platform Attestation & a Realm Attestation. Hence appraisal of Arm CCA attestation needs endorsements for both CCA Platform and CCA Realm. This draft documents both the CCA platform and realm endorsements.
 
-There are five types of PSA Endorsements:
 
-* Reference Values ({{sec-ref-values}}), i.e., measurements of the PSA RoT
-  firmware;
+## Arm CCA Platform Endorsements
+
+There are three types of CCA Platform Endorsements:
+
+* Reference Values ({{sec-ref-values}}), i.e., measurements of the CCA Platform firmware.
 * Attestation Verification Claims ({{sec-keys}}), i.e., cryptographic keys
-  that can be used to verify signed Evidence produced by the PSA RoT, along
-  with the identifiers that bind the keys to their device instances;
-* Certification Claims ({{sec-certificates}}), i.e., metadata that describe
-  the certification status associated with a PSA device.
-* Software Relations ({{sec-swrel}}), used to model upgrade and patch
-  relationships between software components;
-* Endorsements Block List ({{sec-endorsements-block-list}}), used to invalidate
-  previously provisioned Endorsements.
+  that can be used to verify signed attestation token produced by the CCA platform, along
+  with the identifiers that bind the keys to their platform instances.
+* Certification status of CCA platform implementation
 
-## PSA Endorsement Profile
+## Arm CCA Platform Endorsement Profile
 
-PSA Endorsements are carried in one or more CoMIDs inside a CoRIM.
+Arm CCA platform Endorsements are carried in one or more CoMIDs inside a CoRIM.
 
 The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri `http://arm.com/psa/iot/1` as shown in.
+set to the uri `http://arm.com/cca/ssd/1` as shown in.
 
-## PSA Endorsements to PSA RoT Linkage
-{: #sec-psa-rot-id}
+## CCA Platform Endorsements linkage to CCA Platform
+{: #sec-cca-rot-id}
 
-Each PSA Endorsement - be it a Reference Value, Attestation Verification Claim
-or Certification Claim - is associated with an immutable PSA RoT.  A PSA
-Endorsement is associated to its PSA RoT by means of the unique PSA RoT
-identifier known as Implementation ID (see Section 3.2.2 of {{PSA-TOKEN}}).
+Each CCA Platform Endorsement - be it a Reference Value, Attestation Verification Claim
+is associated with a unique CCA platform identifier. A CCA platform
+identifier known as CCA Platform Implementation ID (see Section A7.2.3.2.3 of {{CCA-TOKEN}}) 
+uniquely identifies a class of CCA platform to which the manufacturer/endorser links the supplied
+Endorsements (Reference Values & Attestation Verification Keys) for a CCA platform.
 
-In order to support PSA Implementation IDs, the CoMID type
+In order to support CCA Implementation IDs, the CoMID type
 `$class-id-type-choice` is extended as follows:
 
-
-Besides, a PSA Endorsement can be associated with a specific instance of a
-certain PSA RoT - as in the case of Attestation Verification Claims.  A PSA
-Endorsement is associated with a PSA RoT instance by means of the Instance ID
-(see Section 3.2.1 of {{PSA-TOKEN}}) and its "parent" Implementation ID.
+Besides, a CCA Endorsement can be associated with a specific instance of a
+certain CCA Platform implementation - as in the case of Attestation Verification Claims.  A CCA
+Attestation Verification Claims are associated with a CCA platform instance by means of the Instance ID
+(see Section 3.2.1 of {{CCA-TOKEN}}) and its platform Implementation ID.
 
 These identifiers are typically found in the subject of a CoMID triple, encoded
 in an `environment-map` as shown in .
 
 
-
 Optional `vendor` and `model` can be specified as well.  Together, they are
-interpreted as a unique identifier of the product that embeds the PSA RoT.
+interpreted as a unique identifier of the product that embeds the CCA platform.
 Consistently providing a product identifier is RECOMMENDED.
 
 ## Reference Values
 {: #sec-ref-values}
 
 Reference Values carry measurements and other metadata associated with the
-updatable firmware in a PSA RoT.  When appraising Evidence, the Verifier
+CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
+* CCA system security domain
+* Monitor security domain
+* Realm Management Security domain
+
+When appraising Evidence, the Verifier
 compares Reference Values against the values found in the Software Components
-of the PSA token (see Section 3.4.1 of {{PSA-TOKEN}}).
+of the CCA platform token (see Section 3.4.1 of {{CCA-TOKEN}}).
 
 Each measurement is encoded in a `measurement-map` of a CoMID
 `reference-triple-record`.  Since a `measurement-map` can encode one or more
 measurements, a single `reference-triple-record` can carry as many measurements
-as needed, provided they belong to the same PSA RoT identified in the subject of
+as needed, provided they belong to the same CCA platform identified in the subject of
 the "reference value" triple.  A single `reference-triple-record` SHALL
-completely describe the updatable PSA RoT.
+completely describe the CCA platform RoT.
 
-The identifier of a measured software component is encoded in a `psa-swcomp-id`
+The identifier of a measured software component is encoded in a `arm-swcomp-id`
 object as follows:
 
 
-The semantics of the codepoints in the `psa-swcomp-id` map are equivalent to
-those in the `psa-software-component` map defined in Section 3.4.1 of
-{{PSA-TOKEN}}.  The `psa-swcomp-id` MUST uniquely identify a given software
-component within the PSA RoT / product.
+The semantics of the codepoints in the `arm-swcomp-id` map are equivalent to
+those in the `arm-software-component` map defined in Section 3.4.1 of
+{{CCA-TOKEN}}.  The `arm-swcomp-id` MUST uniquely identify a given software
+component within the CCA platform / product.
 
-In order to support PSA Reference Value identifiers, the CoMID type
+In order to support CCA Reference Value identifiers, the CoMID type
 `$measured-element-type-choice` is extended as follows:
 
 
@@ -162,33 +162,14 @@ digests (obtained with different hash algorithms) of the same measured
 component exist.
 
 
-### Software Upgrades and Patches
-{: #sec-swrel}
-
-In order to model software lifecycle events such as updates and patches, this
-profile defines a new triple that conveys the following semantics:
-
-* SUBJECT: a software component
-* PREDICATE: (non-critically / critically) (updates / patches)
-* OBJECT: another software component
-
-The triple is reified and used as the object of another triple,
-`psa-swrel-triple-record`, whose subject is the embedding environment.
-
-An example of a security critical update involving versions "1.3.5" and "1.4.0"
-of software component "PRoT" within the target environment associated with
-Implementation ID `acme-implementation-id-000000001` is shown in
-
-
-
 ## Attestation Verification Claims
 {: #sec-keys}
 
 An Attestation Verification Claim carries the verification key associated with
-the Initial Attestation Key (IAK) of a PSA device.  When appraising Evidence,
+the Initial Attestation Key (IAK) of a CCA platform.  When appraising Evidence,
 the Verifier uses the Implementation ID and Instance ID claims (see
-{{sec-psa-rot-id}}) to retrieve the verification key that it SHALL use to check
-the signature on the Evidence.  This allows the Verifier to prove (or disprove)
+{{sec-cca-rot-id}}) to retrieve the verification key that it SHALL use to check
+the signature on the CCA platform token.  This allows the Verifier to prove (or disprove)
 the Attester's claimed identity.
 
 Each verification key is provided alongside the corresponding device Instance
@@ -205,66 +186,9 @@ and Implementation IDs (and, possibly, a product identifier) in an
   uses the profile described in this document, and MUST be ignored by a CoMID
   consumer that is parsing according to this profile.
 
-The example in  shows the PSA Endorsement
+The example in  shows the CCA Endorsement
 of type Attestation Verification Claim carrying a secp256r1 EC public IAK
 associated with Instance ID `4ca3...d296`.
-
-
-## Certification Claims
-{: #sec-certificates}
-
-PSA Certified {{PSA-CERTIFIED}} defines a certification scheme for the PSA
-ecosystem.  A product - either a hardware component, a software component, or
-an entire device - that is verified to meet the security criteria established
-by the PSA Certified scheme is warranted a PSA Certified Security Assurance
-Certificate (SAC).  A SAC contains information about the certification of a
-certain product (e.g., the target system, the attained certification level, the
-test lab that conducted the evaluation, etc.), and has a unique Certificate
-Number.
-
-The linkage between a PSA RoT -- comprising the immutable part as well as zero
-or more of the mutable components -- and the associated SAC is provided by a
-Certification Claim, which binds the PSA RoT Implementation ID and the software
-component identifiers with the SAC unique Certificate Number.  When appraising
-Evidence, the Verifier can use the Certification Claims associated with the
-identified Attester as ancillary input to the Appraisal Policy, or to enrich
-the produced Attestation Result.
-
-A Certification Claim is encoded in an `psa-cert-triple-record`, which extends
-the `$$triples-map-extension` socket, as follows:
-
-
-* The Implementation ID of the immutable PSA RoT to which the SAC applies is
-  encoded as a `tagged-impl-id-type` in the `psa.immutable-rot` of the
-  `psa-rot-descriptor`;
-* Any software component that is part of the certified PSA RoT is encoded as a
-  `psa-swcomp-id` (see {{sec-ref-values}}) in the `psa.mutable-rot` of the
-  `psa-rot-descriptor`;
-* The unique SAC Certificate Number is encoded in the `psa-cert-num-type`.
-
-A single CoMID can carry one or more Certification Claims.
-
-The example in shows a Certification Claim that
-associates Certificate Number `1234567890123 - 12345` to Implementation ID
-`acme-implementation-id-000000001` and a single "PRoT" software component with
-version "1.3.5".
-
-
-
-## Endorsements Block List
-{: #sec-endorsements-block-list}
-
-<cref>This is work in progress.  It may change or be removed in the future.</cref>
-
-The following three "blocklist" claims:
-
-* `reference-blocklist-triple`
-* `attest-key-blocklist-triple`
-* `cert-blocklist-triple`
-
-are defined with the same syntax but opposite semantics with regards to their
-"positive" counterparts to allow invalidating previously provisioned endorsements
-from the acceptable set.
 
 # Security Considerations
 
@@ -279,8 +203,8 @@ IANA is requested to allocate the following tag in the "CBOR Tags" registry
 
 | Tag | Data Item | Semantics |
 |---
-| 600 | tagged bytes | PSA Implementation ID ({{sec-psa-rot-id}} of RFCTHIS) |
-| 601 | tagged map | PSA Software Component Identifier ({{sec-ref-values}} of RFCTHIS) |
+| 600 | tagged bytes | CCA Implementation ID ({{sec-cca-rot-id}} of RFCTHIS) |
+| 601 | tagged map | CCA Software Component Identifier ({{sec-ref-values}} of RFCTHIS) |
 {: #tbl-psa-cbor-tag title="CoRIM CBOR Tags"}
 
 ## CoRIM Profile Registration
@@ -290,7 +214,7 @@ IANA is requested to register the following profile value in the
 
 | Profile Value | Type | Semantics |
 |---
-| `http://arm.com/psa/iot/1` | uri | The CoRIM profile specified by this document |
+| `http://arm.com/cca/ssd/1` | uri | The CoRIM profile specified by this document |
 {: #tbl-psa-corim-profile title="PSA profile for CoRIM"}
 
 ## CoMID Codepoints
