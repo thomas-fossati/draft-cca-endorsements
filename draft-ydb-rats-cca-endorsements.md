@@ -41,11 +41,6 @@ normative:
 informative:
   RATS-ARCH: RFC9334
 
-  PSA-CERTIFIED:
-   target: https://www.psacertified.org
-   title: PSA Certified
-   date: 2021
-
   CCA-TOKEN:
    target: https://documentation-service.arm.com/static/63a16f163f28e5456434c719?token=
    title: Realm Management Monitor specification
@@ -88,14 +83,14 @@ There are three types of CCA Platform Endorsements:
   with the identifiers that bind the keys to their platform instances.
 * Certification status of CCA platform implementation
 
-## Arm CCA Platform Endorsement Profile
+### Arm CCA Platform Endorsement Profile
 
 Arm CCA platform Endorsements are carried in one or more CoMIDs inside a CoRIM.
 
 The profile attribute in the CoRIM MUST be present and MUST have a single entry
 set to the uri `http://arm.com/cca/ssd/1` as shown in.
 
-## CCA Platform Endorsements linkage to CCA Platform
+### Arm CCA Platform Endorsements linkage to CCA Platform
 {: #sec-cca-rot-id}
 
 Each CCA Platform Endorsement - be it a Reference Value, Attestation Verification Claim
@@ -120,7 +115,7 @@ Optional `vendor` and `model` can be specified as well.  Together, they are
 interpreted as a unique identifier of the product that embeds the CCA platform.
 Consistently providing a product identifier is RECOMMENDED.
 
-## Reference Values
+### Reference Values
 {: #sec-ref-values}
 
 Reference Values carry measurements and other metadata associated with the
@@ -162,7 +157,7 @@ digests (obtained with different hash algorithms) of the same measured
 component exist.
 
 
-## Attestation Verification Claims
+### Attestation Verification Claims
 {: #sec-keys}
 
 An Attestation Verification Claim carries the verification key associated with
@@ -190,6 +185,39 @@ The example in  shows the CCA Endorsement
 of type Attestation Verification Claim carrying a secp256r1 EC public IAK
 associated with Instance ID `4ca3...d296`.
 
+## Arm CCA Realm Endorsements
+
+Arm CCA Realm provides a protected execution environment for applications executing within a Realm. A Realm Endorsements comprise of:
+
+* Reference Values ({{sec-realm-ref-values}}), i.e., measurements of the configuration and contents of a Realm at the time of its activation along with measurements of software running inside Realm, which can be extended during the lifetime of a Realm.
+
+### Realm Endorsements linkage to Realm
+
+Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is be a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an `environment-map` with `$instance-id-type-choice` set to `tagged-bytes`, i.e. An opaque, variable-length byte string.
+
+In order to support Realm Instance IDs, the CoMID type
+`$instance-id-type-choice` is extended as follows:
+
+A Vendor may wish to identify itself. Hence the following optional elements in the `environment-map`of a  `comid` for the realm can be used.
+
+In the `class-map` select 
+`vendor` name and/or `class-id` set as `UUID` representing unique identity for the Realm owner.
+
+$class-id-type-choice /= tagged-uuid-type
+
+vendor => `tstr` to represent vendor name
+
+Consistently providing a product identifier is RECOMMENDED.
+
+### Arm CCA Realm Endorsement Profile
+
+Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.
+
+The profile attribute in the CoRIM MUST be present and MUST have a single entry
+set to the uri `http://arm.com/cca/realm/1` as shown in.
+
+### Realm Reference Values
+{: #sec-realm-ref-values}
 # Security Considerations
 
 <cref>TODO</cref>

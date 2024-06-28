@@ -62,22 +62,26 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions and Definitions . . . . . . . . . . . . . . . . .   2
-   3.  Arm CCA Endorsements  . . . . . . . . . . . . . . . . . . . .   2
+   3.  Arm CCA Endorsements  . . . . . . . . . . . . . . . . . . . .   3
      3.1.  Arm CCA Platform Endorsements . . . . . . . . . . . . . .   3
-     3.2.  Arm CCA Platform Endorsement Profile  . . . . . . . . . .   3
-     3.3.  CCA Platform Endorsements linkage to CCA Platform . . . .   3
-     3.4.  Reference Values  . . . . . . . . . . . . . . . . . . . .   4
-     3.5.  Attestation Verification Claims . . . . . . . . . . . . .   5
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-     5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   5
-     5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   6
-     5.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .   6
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   6
-   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     Normative References  . . . . . . . . . . . . . . . . . . . . .   7
-     Informative References  . . . . . . . . . . . . . . . . . . . .   7
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+       3.1.1.  Arm CCA Platform Endorsement Profile  . . . . . . . .   3
+       3.1.2.  Arm CCA Platform Endorsements linkage to CCA
+               Platform  . . . . . . . . . . . . . . . . . . . . . .   3
+       3.1.3.  Reference Values  . . . . . . . . . . . . . . . . . .   4
+       3.1.4.  Attestation Verification Claims . . . . . . . . . . .   5
+     3.2.  Arm CCA Realm Endorsements  . . . . . . . . . . . . . . .   5
+       3.2.1.  Realm Endorsements linkage to Realm . . . . . . . . .   6
+       3.2.2.  Arm CCA Realm Endorsement Profile . . . . . . . . . .   6
+       3.2.3.  Realm Reference Values  . . . . . . . . . . . . . . .   6
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
+     4.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   6
+     4.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   7
+     4.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .   7
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   7
+   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     Normative References  . . . . . . . . . . . . . . . . . . . . .   8
+     Informative References  . . . . . . . . . . . . . . . . . . . .   8
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
 
 1.  Introduction
 
@@ -98,13 +102,9 @@ Table of Contents
    The reader is assumed to be familiar with the terms defined in
    Section A7.2.1 of [CCA-TOKEN] and in Section 4 of [RATS-ARCH].
 
-3.  Arm CCA Endorsements
 
-   Arm CCA attestation scheme is a composite attestation scheme which
-   comprises a CCA Platform Attestation & a Realm Attestation.  Hence
-   appraisal of Arm CCA attestation needs endorsements for both CCA
-   Platform and CCA Realm.  This draft documents both the CCA platform
-   and realm endorsements.
+
+
 
 
 
@@ -114,21 +114,29 @@ Deshpande & Fossati     Expires 30 December 2024                [Page 2]
 Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
+3.  Arm CCA Endorsements
+
+   Arm CCA attestation scheme is a composite attestation scheme which
+   comprises a CCA Platform Attestation & a Realm Attestation.  Hence
+   appraisal of Arm CCA attestation needs endorsements for both CCA
+   Platform and CCA Realm.  This draft documents both the CCA platform
+   and realm endorsements.
+
 3.1.  Arm CCA Platform Endorsements
 
    There are three types of CCA Platform Endorsements:
 
-   *  Reference Values (Section 3.4), i.e., measurements of the CCA
+   *  Reference Values (Section 3.1.3), i.e., measurements of the CCA
       Platform firmware.
 
-   *  Attestation Verification Claims (Section 3.5), i.e., cryptographic
-      keys that can be used to verify signed attestation token produced
-      by the CCA platform, along with the identifiers that bind the keys
-      to their platform instances.
+   *  Attestation Verification Claims (Section 3.1.4), i.e.,
+      cryptographic keys that can be used to verify signed attestation
+      token produced by the CCA platform, along with the identifiers
+      that bind the keys to their platform instances.
 
    *  Certification status of CCA platform implementation
 
-3.2.  Arm CCA Platform Endorsement Profile
+3.1.1.  Arm CCA Platform Endorsement Profile
 
    Arm CCA platform Endorsements are carried in one or more CoMIDs
    inside a CoRIM.
@@ -136,7 +144,7 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
    The profile attribute in the CoRIM MUST be present and MUST have a
    single entry set to the uri http://arm.com/cca/ssd/1 as shown in.
 
-3.3.  CCA Platform Endorsements linkage to CCA Platform
+3.1.2.  Arm CCA Platform Endorsements linkage to CCA Platform
 
    Each CCA Platform Endorsement - be it a Reference Value, Attestation
    Verification Claim is associated with a unique CCA platform
@@ -149,15 +157,7 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
    In order to support CCA Implementation IDs, the CoMID type $class-id-
    type-choice is extended as follows:
 
-   Besides, a CCA Endorsement can be associated with a specific instance
-   of a certain CCA Platform implementation - as in the case of
-   Attestation Verification Claims.  A CCA Attestation Verification
-   Claims are associated with a CCA platform instance by means of the
-   Instance ID (see Section 3.2.1 of [CCA-TOKEN]) and its platform
-   Implementation ID.
 
-   These identifiers are typically found in the subject of a CoMID
-   triple, encoded in an environment-map as shown in .
 
 
 
@@ -170,12 +170,22 @@ Deshpande & Fossati     Expires 30 December 2024                [Page 3]
 Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
+   Besides, a CCA Endorsement can be associated with a specific instance
+   of a certain CCA Platform implementation - as in the case of
+   Attestation Verification Claims.  A CCA Attestation Verification
+   Claims are associated with a CCA platform instance by means of the
+   Instance ID (see Section 3.2.1 of [CCA-TOKEN]) and its platform
+   Implementation ID.
+
+   These identifiers are typically found in the subject of a CoMID
+   triple, encoded in an environment-map as shown in .
+
    Optional vendor and model can be specified as well.  Together, they
    are interpreted as a unique identifier of the product that embeds the
    CCA platform.  Consistently providing a product identifier is
    RECOMMENDED.
 
-3.4.  Reference Values
+3.1.3.  Reference Values
 
    Reference Values carry measurements and other metadata associated
    with the CCA platform.  The CCA platform is a collective term used to
@@ -209,16 +219,6 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
    and automatically bound to the comid.mkey in the measurement-map.
 
-   The raw measurement is encoded in a digests-type object in the
-   measurement-values-map.  The digests-type array MUST contain at least
-   one entry.  The digests-type array MAY contain more than one entry if
-   multiple digests (obtained with different hash algorithms) of the
-   same measured component exist.
-
-
-
-
-
 
 
 Deshpande & Fossati     Expires 30 December 2024                [Page 4]
@@ -226,15 +226,21 @@ Deshpande & Fossati     Expires 30 December 2024                [Page 4]
 Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
-3.5.  Attestation Verification Claims
+   The raw measurement is encoded in a digests-type object in the
+   measurement-values-map.  The digests-type array MUST contain at least
+   one entry.  The digests-type array MAY contain more than one entry if
+   multiple digests (obtained with different hash algorithms) of the
+   same measured component exist.
+
+3.1.4.  Attestation Verification Claims
 
    An Attestation Verification Claim carries the verification key
    associated with the Initial Attestation Key (IAK) of a CCA platform.
    When appraising Evidence, the Verifier uses the Implementation ID and
-   Instance ID claims (see Section 3.3) to retrieve the verification key
-   that it SHALL use to check the signature on the CCA platform token.
-   This allows the Verifier to prove (or disprove) the Attester's
-   claimed identity.
+   Instance ID claims (see Section 3.1.2) to retrieve the verification
+   key that it SHALL use to check the signature on the CCA platform
+   token.  This allows the Verifier to prove (or disprove) the
+   Attester's claimed identity.
 
    Each verification key is provided alongside the corresponding device
    Instance and Implementation IDs (and, possibly, a product identifier)
@@ -257,22 +263,16 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
    Verification Claim carrying a secp256r1 EC public IAK associated with
    Instance ID 4ca3...d296.
 
-4.  Security Considerations
+3.2.  Arm CCA Realm Endorsements
 
+   Arm CCA Realm provides a protected execution environment for
+   applications executing within a Realm.  A Realm Endorsements comprise
+   of:
 
-   // TODO
-
-5.  IANA Considerations
-
-5.1.  CBOR Tag Registrations
-
-   IANA is requested to allocate the following tag in the "CBOR Tags"
-   registry [IANA.cbor-tags], preferably with the specified value:
-
-
-
-
-
+   *  Reference Values (Section 3.2.3), i.e., measurements of the
+      configuration and contents of a Realm at the time of its
+      activation along with measurements of software running inside
+      Realm, which can be extended during the lifetime of a Realm.
 
 
 
@@ -282,19 +282,75 @@ Deshpande & Fossati     Expires 30 December 2024                [Page 5]
 Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
+3.2.1.  Realm Endorsements linkage to Realm
+
+   Each Realm has a unique execution context and hence a unique Realm
+   instance.  Each Realm is uniquely identified in the Arm CCA system.
+   For a realm its Endorsements are associated to this unique instance.
+   The realm instance is be a vendor defined variable length identifier.
+   Hence in this profile, it is represented in a CoMID inside an
+   environment-map with $instance-id-type-choice set to tagged-bytes,
+   i.e. An opaque, variable-length byte string.
+
+   In order to support Realm Instance IDs, the CoMID type $instance-id-
+   type-choice is extended as follows:
+
+   A Vendor may wish to identify itself.  Hence the following optional
+   elements in the environment-mapof a comid for the realm can be used.
+
+   In the class-map select vendor name and/or class-id set as UUID
+   representing unique identity for the Realm owner.
+
+   $class-id-type-choice /= tagged-uuid-type
+
+   vendor => tstr to represent vendor name
+
+   Consistently providing a product identifier is RECOMMENDED.
+
+3.2.2.  Arm CCA Realm Endorsement Profile
+
+   Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.
+
+   The profile attribute in the CoRIM MUST be present and MUST have a
+   single entry set to the uri http://arm.com/cca/realm/1 as shown in.
+
+3.2.3.  Realm Reference Values
+
+   # Security Considerations
+
+
+   // TODO
+
+4.  IANA Considerations
+
+4.1.  CBOR Tag Registrations
+
+   IANA is requested to allocate the following tag in the "CBOR Tags"
+   registry [IANA.cbor-tags], preferably with the specified value:
+
+
+
+
+
+
+Deshpande & Fossati     Expires 30 December 2024                [Page 6]
+
+Internet-Draft            Arm CCA Endorsements                 June 2024
+
+
         +=====+==============+===================================+
         | Tag | Data Item    | Semantics                         |
         +=====+==============+===================================+
         | 600 | tagged bytes | CCA Implementation ID             |
-        |     |              | (Section 3.3 of RFCTHIS)          |
+        |     |              | (Section 3.1.2 of RFCTHIS)        |
         +-----+--------------+-----------------------------------+
         | 601 | tagged map   | CCA Software Component Identifier |
-        |     |              | (Section 3.4 of RFCTHIS)          |
+        |     |              | (Section 3.1.3 of RFCTHIS)        |
         +-----+--------------+-----------------------------------+
 
                          Table 1: CoRIM CBOR Tags
 
-5.2.  CoRIM Profile Registration
+4.2.  CoRIM Profile Registration
 
    IANA is requested to register the following profile value in the
    // TODO CoRIM registry.
@@ -308,7 +364,7 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
                       Table 2: PSA profile for CoRIM
 
-5.3.  CoMID Codepoints
+4.3.  CoMID Codepoints
 
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
@@ -333,7 +389,7 @@ References
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 6]
+Deshpande & Fossati     Expires 30 December 2024                [Page 7]
 
 Internet-Draft            Arm CCA Endorsements                 June 2024
 
@@ -372,9 +428,6 @@ Informative References
               <https://documentation-service.arm.com/
               static/63a16f163f28e5456434c719?token=>.
 
-   [PSA-CERTIFIED]
-              "PSA Certified", 2021, <https://www.psacertified.org>.
-
    [RATS-ARCH]
               Birkholz, H., Thaler, D., Richardson, M., Smith, N., and
               W. Pan, "Remote ATtestation procedureS (RATS)
@@ -389,7 +442,10 @@ Authors' Addresses
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 7]
+
+
+
+Deshpande & Fossati     Expires 30 December 2024                [Page 8]
 
 Internet-Draft            Arm CCA Endorsements                 June 2024
 
@@ -445,4 +501,4 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 8]
+Deshpande & Fossati     Expires 30 December 2024                [Page 9]

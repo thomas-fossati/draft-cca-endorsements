@@ -44,7 +44,7 @@
     <abstract>
 
 
-<?line 54?>
+<?line 49?>
 
 <t>Arm Confidential Computing Architecture (Arm CCA) Endorsements comprise of reference values and cryptographic key material that a Verifier needs in order to
 appraise Attestation Evidence produced by Arm CCA system.</t>
@@ -60,7 +60,7 @@ appraise Attestation Evidence produced by Arm CCA system.</t>
   <middle>
 
 
-<?line 59?>
+<?line 54?>
 
 <section anchor="introduction"><name>Introduction</name>
 
@@ -99,7 +99,6 @@ with the identifiers that bind the keys to their platform instances.</t>
   <t>Certification status of CCA platform implementation</t>
 </list></t>
 
-</section>
 <section anchor="arm-cca-platform-endorsement-profile"><name>Arm CCA Platform Endorsement Profile</name>
 
 <t>Arm CCA platform Endorsements are carried in one or more CoMIDs inside a CoRIM.</t>
@@ -108,7 +107,7 @@ with the identifiers that bind the keys to their platform instances.</t>
 set to the uri <spanx style="verb">http://arm.com/cca/ssd/1</spanx> as shown in.</t>
 
 </section>
-<section anchor="sec-cca-rot-id"><name>CCA Platform Endorsements linkage to CCA Platform</name>
+<section anchor="sec-cca-rot-id"><name>Arm CCA Platform Endorsements linkage to CCA Platform</name>
 
 <t>Each CCA Platform Endorsement - be it a Reference Value, Attestation Verification Claim
 is associated with a unique CCA platform identifier. A CCA platform
@@ -202,10 +201,48 @@ associated with Instance ID <spanx style="verb">4ca3...d296</spanx>.</t>
 
 </section>
 </section>
-<section anchor="security-considerations"><name>Security Considerations</name>
+<section anchor="arm-cca-realm-endorsements"><name>Arm CCA Realm Endorsements</name>
+
+<t>Arm CCA Realm provides a protected execution environment for applications executing within a Realm. A Realm Endorsements comprise of:</t>
+
+<t><list style="symbols">
+  <t>Reference Values (<xref target="sec-realm-ref-values"/>), i.e., measurements of the configuration and contents of a Realm at the time of its activation along with measurements of software running inside Realm, which can be extended during the lifetime of a Realm.</t>
+</list></t>
+
+<section anchor="realm-endorsements-linkage-to-realm"><name>Realm Endorsements linkage to Realm</name>
+
+<t>Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is be a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an <spanx style="verb">environment-map</spanx> with <spanx style="verb">$instance-id-type-choice</spanx> set to <spanx style="verb">tagged-bytes</spanx>, i.e. An opaque, variable-length byte string.</t>
+
+<t>In order to support Realm Instance IDs, the CoMID type
+<spanx style="verb">$instance-id-type-choice</spanx> is extended as follows:</t>
+
+<t>A Vendor may wish to identify itself. Hence the following optional elements in the <spanx style="verb">environment-map</spanx>of a  <spanx style="verb">comid</spanx> for the realm can be used.</t>
+
+<t>In the <spanx style="verb">class-map</spanx> select 
+<spanx style="verb">vendor</spanx> name and/or <spanx style="verb">class-id</spanx> set as <spanx style="verb">UUID</spanx> representing unique identity for the Realm owner.</t>
+
+<t>$class-id-type-choice /= tagged-uuid-type</t>
+
+<t>vendor =&gt; <spanx style="verb">tstr</spanx> to represent vendor name</t>
+
+<t>Consistently providing a product identifier is RECOMMENDED.</t>
+
+</section>
+<section anchor="arm-cca-realm-endorsement-profile"><name>Arm CCA Realm Endorsement Profile</name>
+
+<t>Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.</t>
+
+<t>The profile attribute in the CoRIM MUST be present and MUST have a single entry
+set to the uri <spanx style="verb">http://arm.com/cca/realm/1</spanx> as shown in.</t>
+
+</section>
+<section anchor="sec-realm-ref-values"><name>Realm Reference Values</name>
+<t># Security Considerations</t>
 
 <t><cref>TODO</cref></t>
 
+</section>
+</section>
 </section>
 <section anchor="iana-considerations"><name>IANA Considerations</name>
 
@@ -400,15 +437,6 @@ Map" registry.</t>
 </reference>
 
 
-<reference anchor="PSA-CERTIFIED" target="https://www.psacertified.org">
-  <front>
-    <title>PSA Certified</title>
-    <author >
-      <organization></organization>
-    </author>
-    <date year="2021"/>
-  </front>
-</reference>
 <reference anchor="CCA-TOKEN" target="https://documentation-service.arm.com/static/63a16f163f28e5456434c719?token=">
   <front>
     <title>Realm Management Monitor specification</title>
@@ -427,80 +455,90 @@ Map" registry.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-t5cbmrUNJP8HoSgUfdwhAAA=
+H4sIAAAAAAAAA8Va23IbNxJ9x1dg5VRiZTWUdbESa+MkjKSUWbEsryRnK09L
+cAYkZz2cYQBQMkvSv+y37Jft6QYwF5KyktqHfYjDGdwafTl9ukdJkgiXu0If
+y76ZfWXlSVWO80yXLlcFHmbzhcvLCQbTae506hZGy+eYKk9O+tuy75y2Trm8
+KuWv2uTjXBt5VmaVsXqGTaxQo5HRN7w7LekOZlVaqhnOzowau2SZjRKjnE3S
+VCW6NTEpFJ0jMvzvWN6d9q/PHkSKh0lllscyL8eVyOfmWDqzsG7/xYtXL/aF
+MlodyyudLkzuluK2Mh8nplrMj+Vl//pKCMhdZv9URVViz6W2Yp4fCyGlGac6
+s25ZhNdSuipt/cxLUk98YSvjjB7b+nk56zw6k6f15LSa8X3q3fQnlxS5dQmW
+jaoCA0n19V8xAs3M1HwO1fu5Qi3ctDIQMMGoV9pv1UTbqTzFP3NcRWOgMhOv
+6rcuw6OeqbzABjyxl8WJPyoz60GW9mbX02qmrPy5shbmjFu9zUtlqmYnx7N6
+Yz/rx4KHe5gqhCgrM8PLG81aPKkuB+fHcpCc9nLtxsGulclxKtmrnivZHEn/
+8uQNLPPzyauDg0Pe4KSfXF/8cvaOpkinzERDj1Pn5vZ4dxf6WZAq2fUSq81N
+nupeuNcuu2S6e3Sg9o7Ge0cH4/1v9cvDl0eHB4fpN3uvfnDVR12+5n29719q
+VczkuSrVhD1Onldl7ioj7Vyn8OqUz6EF3gX3X+zvQ3tJItUIJlapE4I9/E9F
+TzsWyDfmJrdaVmMJD9JGl6mWN6pYaCthNZma5dxVE6Pm0zyVH/VSQoWIOZzk
+pspJ1URgqeHBCAsYMcOjqwR8ySjavR2xZzckK06ZmypbwOvlaFkHql1ap2c9
+f8tZnmWFFuKZHJSOJ7M+xKaoxrlpscj0n75F4xeQ7ckryXgloZ66kmIZr/hC
+8u6u9qyHh56E4+dWzvSskpke5yVizS7S6fqtEByKdh3nBdvITbV3cnIJJWdV
+pgvanF5hY9IVvOGGfKEq/d1P6YCcn4W4xnq6PnAJF9s6/3B1vbXj/y/fXfDv
+y7O/fxhcnp3S76s3/bdv6x8izLh6c/Hh7Wnzq1l5cnF+fvbu1C/GW9l5JbbO
++79hhKTaunh/Pbh413+7Rep1pI4YXRIYSqoeaQzBSnOjHVSqgNzapiYf4QFr
+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
+KAAA
 
 -->
 
