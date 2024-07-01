@@ -5,8 +5,8 @@
 RATS                                                        Y. Deshpande
 Internet-Draft                                                   Arm Ltd
 Intended status: Informational                                T. Fossati
-Expires: 30 December 2024                                         Linaro
-                                                            28 June 2024
+Expires: 2 January 2025                                           Linaro
+                                                             1 July 2024
 
 
 Arm's Confidential Computing Architecture (Arm CCA) Attestation Verifier
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 December 2024.
+   This Internet-Draft will expire on 2 January 2025.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 1]
+Deshpande & Fossati      Expires 2 January 2025                 [Page 1]
 
-Internet-Draft            Arm CCA Endorsements                 June 2024
+Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
 Table of Contents
@@ -72,16 +72,17 @@ Table of Contents
      3.2.  Arm CCA Realm Endorsements  . . . . . . . . . . . . . . .   5
        3.2.1.  Realm Endorsements linkage to Realm . . . . . . . . .   6
        3.2.2.  Arm CCA Realm Endorsement Profile . . . . . . . . . .   6
-       3.2.3.  Realm Reference Values  . . . . . . . . . . . . . . .   6
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
-     4.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   6
-     4.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   7
-     4.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .   7
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   7
-   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+       3.2.3.  Reference Values  . . . . . . . . . . . . . . . . . .   6
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+     5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   7
+     5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   8
+     5.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .   8
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   8
+   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
      Normative References  . . . . . . . . . . . . . . . . . . . . .   8
-     Informative References  . . . . . . . . . . . . . . . . . . . .   8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
+     Informative References  . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
@@ -108,10 +109,9 @@ Table of Contents
 
 
 
-
-Deshpande & Fossati     Expires 30 December 2024                [Page 2]
+Deshpande & Fossati      Expires 2 January 2025                 [Page 2]
 
-Internet-Draft            Arm CCA Endorsements                 June 2024
+Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
 3.  Arm CCA Endorsements
@@ -165,9 +165,9 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 3]
+Deshpande & Fossati      Expires 2 January 2025                 [Page 3]
 
-Internet-Draft            Arm CCA Endorsements                 June 2024
+Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
    Besides, a CCA Endorsement can be associated with a specific instance
@@ -221,9 +221,9 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 4]
+Deshpande & Fossati      Expires 2 January 2025                 [Page 4]
 
-Internet-Draft            Arm CCA Endorsements                 June 2024
+Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
    The raw measurement is encoded in a digests-type object in the
@@ -277,10 +277,14 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
 
 
-Deshpande & Fossati     Expires 30 December 2024                [Page 5]
+Deshpande & Fossati      Expires 2 January 2025                 [Page 5]
 
-Internet-Draft            Arm CCA Endorsements                 June 2024
+Internet-Draft            Arm CCA Endorsements                 July 2024
 
+
+   Please note that there are no Realm Trust Anchor Endorsements needed
+   from supply chain as they are present inline in the Attestation
+   Evidence.
 
 3.2.1.  Realm Endorsements linkage to Realm
 
@@ -290,13 +294,13 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
    The realm instance is be a vendor defined variable length identifier.
    Hence in this profile, it is represented in a CoMID inside an
    environment-map with $instance-id-type-choice set to tagged-bytes,
-   i.e. An opaque, variable-length byte string.
+   i.e. An opaque, variable-length byte string.  In this profile of CCA
+   Endorsements, the Realm Initial Measurements are set in tagged-bytes
+   to represent Realm instance.
 
-   In order to support Realm Instance IDs, the CoMID type $instance-id-
-   type-choice is extended as follows:
-
-   A Vendor may wish to identify itself.  Hence the following optional
-   elements in the environment-mapof a comid for the realm can be used.
+   When supplying Realm Endorsements, a supplier of one or more Realms
+   may wish to identify itself.  Hence the following class related
+   elements in the environment-map of a comid can be used.
 
    In the class-map select vendor name and/or class-id set as UUID
    representing unique identity for the Realm owner.
@@ -305,8 +309,6 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
    vendor => tstr to represent vendor name
 
-   Consistently providing a product identifier is RECOMMENDED.
-
 3.2.2.  Arm CCA Realm Endorsement Profile
 
    Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.
@@ -314,29 +316,63 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
    The profile attribute in the CoRIM MUST be present and MUST have a
    single entry set to the uri http://arm.com/cca/realm/1 as shown in.
 
-3.2.3.  Realm Reference Values
+3.2.3.  Reference Values
 
-   # Security Considerations
+   Reference Values carry measurements and other metadata associated
+   with the CCA Realm.
+
+   Realm reference values comprise of: 1.  Realm Initial Measurements
+   (RIM) 2.  Realm Extended Measurements (REMs)
+   3.  Realm Personalization Value (RPV)
+
+
+
+
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 6]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
+   RIM and REMs are encoded in a measurement-values-map (in a
+   measurement-map) of a CoMID reference-triple-record.  Inside
+   measurement-values-map these measurements are carried as integrity-
+   registers map.  Integrity Registers map is used to group together one
+   or more measured objects pertaining to an environment.  Please refer
+   [CoRIM] for details about Integrity Register map.
+
+   All the measured objects in an Integrity Registers map are explicitly
+   named.  In the context of Realms, the measured objects are RIM and
+   REMs.  Inside Integrity Register map, RIM is uniquely identified by
+   the name "rim", while REMs which is an array of measurements from
+   1..4 are uniquely identified by the coresponding name "rem0".."rem3".
+
+   Realm Personalization Value, (RPV) is an optional identity used by a
+   Realm endorser to uniquely identify multiple Realms which all have
+   same RIM.  RPV if provided is a fixed length 64 bytes identifier.  In
+   this profile, RPV is represented using Raw Value Measurements in a
+   measurement-values-map, with raw value type choice set to tagged-
+   bytes.
+
+   $raw-value-type-choice /= tagged-bytes
+
+   Given below is the complete example of a Realm Endorsements.
+
+4.  Security Considerations
 
 
    // TODO
 
-4.  IANA Considerations
+5.  IANA Considerations
 
-4.1.  CBOR Tag Registrations
+5.1.  CBOR Tag Registrations
 
-   IANA is requested to allocate the following tag in the "CBOR Tags"
+   IANA is requested to allocate the following tags in the "CBOR Tags"
    registry [IANA.cbor-tags], preferably with the specified value:
-
-
-
-
-
-
-Deshpande & Fossati     Expires 30 December 2024                [Page 6]
-
-Internet-Draft            Arm CCA Endorsements                 June 2024
-
 
         +=====+==============+===================================+
         | Tag | Data Item    | Semantics                         |
@@ -350,7 +386,15 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
 
                          Table 1: CoRIM CBOR Tags
 
-4.2.  CoRIM Profile Registration
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 7]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
+5.2.  CoRIM Profile Registration
 
    IANA is requested to register the following profile value in the
    // TODO CoRIM registry.
@@ -362,9 +406,18 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
      |                          |      | specified by this document |
      +--------------------------+------+----------------------------+
 
-                      Table 2: PSA profile for CoRIM
+                 Table 2: CCA platform profile for CoRIM
 
-4.3.  CoMID Codepoints
+    +============================+======+============================+
+    | Profile Value              | Type | Semantics                  |
+    +============================+======+============================+
+    | http://arm.com/cca/realm/1 | uri  | The CoRIM profile          |
+    |                            |      | specified by this document |
+    +----------------------------+------+----------------------------+
+
+                   Table 3: CCA realm profile for CoRIM
+
+5.3.  CoMID Codepoints
 
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
@@ -377,7 +430,7 @@ Internet-Draft            Arm CCA Endorsements                 June 2024
             | 5     | comid.psa-swrel-triples | RFCTHIS       |
             +-------+-------------------------+---------------+
 
-                         Table 3: PSA CoMID Triples
+                         Table 4: PSA CoMID Triples
 
 Acknowledgements
 
@@ -386,15 +439,16 @@ Acknowledgements
 
 References
 
-
-
-
-Deshpande & Fossati     Expires 30 December 2024                [Page 7]
-
-Internet-Draft            Arm CCA Endorsements                 June 2024
-
-
 Normative References
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 8]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
    [CoRIM]    Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
@@ -441,64 +495,10 @@ Authors' Addresses
    Email: yogesh.deshpande@arm.com
 
 
-
-
-
-
-Deshpande & Fossati     Expires 30 December 2024                [Page 8]
-
-Internet-Draft            Arm CCA Endorsements                 June 2024
-
-
    Thomas Fossati
    Linaro
    Email: thomas.fossati@linaro.org
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Deshpande & Fossati     Expires 30 December 2024                [Page 9]
+Deshpande & Fossati      Expires 2 January 2025                 [Page 9]
