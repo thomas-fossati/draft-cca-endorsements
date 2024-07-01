@@ -72,17 +72,17 @@ Table of Contents
      3.2.  Arm CCA Realm Endorsements  . . . . . . . . . . . . . . .   5
        3.2.1.  Realm Endorsements linkage to Realm . . . . . . . . .   6
        3.2.2.  Arm CCA Realm Endorsement Profile . . . . . . . . . .   6
-       3.2.3.  Reference Values  . . . . . . . . . . . . . . . . . .   6
+       3.2.3.  Reference Values  . . . . . . . . . . . . . . . . . .   7
    4.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
      5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   7
      5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   8
      5.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .   8
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   8
-   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     Normative References  . . . . . . . . . . . . . . . . . . . . .   8
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   9
+   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     Normative References  . . . . . . . . . . . . . . . . . . . . .   9
      Informative References  . . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
@@ -138,11 +138,21 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
 3.1.1.  Arm CCA Platform Endorsement Profile
 
-   Arm CCA platform Endorsements are carried in one or more CoMIDs
+   Arm CCA platform endorsements are carried in one or more CoMIDs
    inside a CoRIM.
 
    The profile attribute in the CoRIM MUST be present and MUST have a
-   single entry set to the uri http://arm.com/cca/ssd/1 as shown in.
+   single entry set to the uri http://arm.com/cca/ssd/1 as shown in
+   Figure 1.
+
+   / corim-map / {
+     / corim.profile / 3: [
+       32("http://arm.com/cca/ssd/1")
+     ]
+     / ... /
+   }
+
+          Figure 1: CCA platform profile version 1, CoRIM profile
 
 3.1.2.  Arm CCA Platform Endorsements linkage to CCA Platform
 
@@ -152,16 +162,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Implementation ID (see Section A7.2.3.2.3 of [CCA-TOKEN]) uniquely
    identifies a class of CCA platform to which the manufacturer/endorser
    links the supplied Endorsements (Reference Values & Attestation
-   Verification Keys) for a CCA platform.
-
-   In order to support CCA Implementation IDs, the CoMID type $class-id-
-   type-choice is extended as follows:
-
-
-
-
-
-
 
 
 
@@ -169,6 +169,11 @@ Deshpande & Fossati      Expires 2 January 2025                 [Page 3]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
+
+   Verification Keys) for a CCA platform.
+
+   In order to support CCA Implementation IDs, the CoMID type $class-id-
+   type-choice is extended as follows:
 
    Besides, a CCA Endorsement can be associated with a specific instance
    of a certain CCA Platform implementation - as in the case of
@@ -214,17 +219,17 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    identify a given software component within the CCA platform /
    product.
 
-   In order to support CCA Reference Value identifiers, the CoMID type
-   $measured-element-type-choice is extended as follows:
-
-   and automatically bound to the comid.mkey in the measurement-map.
-
 
 
 Deshpande & Fossati      Expires 2 January 2025                 [Page 4]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
+
+   In order to support CCA Reference Value identifiers, the CoMID type
+   $measured-element-type-choice is extended as follows:
+
+   and automatically bound to the comid.mkey in the measurement-map.
 
    The raw measurement is encoded in a digests-type object in the
    measurement-values-map.  The digests-type array MUST contain at least
@@ -269,11 +274,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    applications executing within a Realm.  A Realm Endorsements comprise
    of:
 
-   *  Reference Values (Section 3.2.3), i.e., measurements of the
-      configuration and contents of a Realm at the time of its
-      activation along with measurements of software running inside
-      Realm, which can be extended during the lifetime of a Realm.
-
 
 
 
@@ -281,6 +281,11 @@ Deshpande & Fossati      Expires 2 January 2025                 [Page 5]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
+
+   *  Reference Values (Section 3.2.3), i.e., measurements of the
+      configuration and contents of a Realm at the time of its
+      activation along with measurements of software running inside
+      Realm, which can be extended during the lifetime of a Realm.
 
    Please note that there are no Realm Trust Anchor Endorsements needed
    from supply chain as they are present inline in the Attestation
@@ -314,7 +319,24 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.
 
    The profile attribute in the CoRIM MUST be present and MUST have a
-   single entry set to the uri http://arm.com/cca/realm/1 as shown in.
+   single entry set to the uri http://arm.com/cca/realm/1 as shown in
+   Figure 2.
+
+   / corim-map / {
+     / corim.profile / 3: [
+       32("http://arm.com/cca/realm/1")
+     ]
+     / ... /
+   }
+
+            Figure 2: CCA realm profile version 1, CoRIM profile
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 6]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
 3.2.3.  Reference Values
 
@@ -324,19 +346,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Realm reference values comprise of: 1.  Realm Initial Measurements
    (RIM) 2.  Realm Extended Measurements (REMs)
    3.  Realm Personalization Value (RPV)
-
-
-
-
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 6]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
    RIM and REMs are encoded in a measurement-values-map (in a
    measurement-map) of a CoMID reference-triple-record.  Inside
@@ -374,6 +383,17 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    IANA is requested to allocate the following tags in the "CBOR Tags"
    registry [IANA.cbor-tags], preferably with the specified value:
 
+
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 7]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
         +=====+==============+===================================+
         | Tag | Data Item    | Semantics                         |
         +=====+==============+===================================+
@@ -385,14 +405,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
         +-----+--------------+-----------------------------------+
 
                          Table 1: CoRIM CBOR Tags
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 7]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
 5.2.  CoRIM Profile Registration
 
@@ -422,6 +434,22 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
 
+
+
+
+
+
+
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 8]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
             +=======+=========================+===============+
             | Index | Item Name               | Specification |
             +=======+=========================+===============+
@@ -440,15 +468,6 @@ Acknowledgements
 References
 
 Normative References
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 8]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
    [CoRIM]    Birkholz, H., Fossati, T., Deshpande, Y., Smith, N., and
               W. Pan, "Concise Reference Integrity Manifest", Work in
@@ -477,6 +496,16 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
 Informative References
 
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 9]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
    [CCA-TOKEN]
               "Realm Management Monitor specification", 2022,
               <https://documentation-service.arm.com/
@@ -501,4 +530,31 @@ Authors' Addresses
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 9]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                [Page 10]

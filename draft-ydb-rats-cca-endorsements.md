@@ -85,10 +85,15 @@ There are three types of CCA Platform Endorsements:
 
 ### Arm CCA Platform Endorsement Profile
 
-Arm CCA platform Endorsements are carried in one or more CoMIDs inside a CoRIM.
+Arm CCA platform endorsements are carried in one or more CoMIDs inside a CoRIM.
 
 The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri `http://arm.com/cca/ssd/1` as shown in.
+set to the uri `http://arm.com/cca/ssd/1` as shown in {{ex-cca-platform-profile}}.
+
+~~~
+{::include examples/platform-profile.diag}
+~~~
+{: #ex-cca-platform-profile title="CCA platform profile version 1, CoRIM profile" }
 
 ### Arm CCA Platform Endorsements linkage to CCA Platform
 {: #sec-cca-rot-id}
@@ -211,7 +216,12 @@ vendor => `tstr` to represent vendor name
 Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.
 
 The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri `http://arm.com/cca/realm/1` as shown in.
+set to the uri `http://arm.com/cca/realm/1` as shown in {{ex-cca-realm-profile}}.
+
+~~~
+{::include examples/realm-profile.diag}
+~~~
+{: #ex-cca-realm-profile title="CCA realm profile version 1, CoRIM profile" }
 
 ### Reference Values
 {: #sec-realm-ref-values}
