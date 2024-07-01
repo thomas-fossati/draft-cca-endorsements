@@ -1466,25 +1466,57 @@ identifier known as CCA Platform Implementation ID (see Section A7.2.3.2.3 of <s
 uniquely identifies a class of CCA platform to which the manufacturer/endorser links the supplied
 Endorsements (Reference Values &amp; Attestation Verification Keys) for a CCA platform.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-2">In order to support CCA Implementation IDs, the CoMID type
-<code>$class-id-type-choice</code> is extended as follows:<a href="#section-3.1.2-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1.2-3">
+<code>$class-id-type-choice</code> is extended as follows <a href="#ex-cca-platform-impl-id" class="auto internal xref">Figure 2</a>:<a href="#section-3.1.2-2" class="pilcrow">¶</a></p>
+<span id="name-example-cca-platform-implem"></span><div id="ex-cca-platform-impl-id">
+<figure id="figure-2">
+            <div class="alignLeft art-text artwork" id="section-3.1.2-3.1">
 <pre>
 cca-implementation-id-type = bytes .size 32
 
 tagged-implementation-id-type = #6.600(implementation-id-type)
 
 $class-id-type-choice /= tagged-implementation-id-type
-</pre><a href="#section-3.1.2-3" class="pilcrow">¶</a>
+</pre>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-example-cca-platform-implem" class="selfRef">Example CCA Platform Implementation ID</a>
+            </figcaption></figure>
 </div>
 <p id="section-3.1.2-4">Besides, a CCA Endorsement can be associated with a specific instance of a
-certain CCA Platform implementation - as in the case of Attestation Verification Claims.  A CCA
+certain CCA Platform implementation - as is the case of Attestation Verification Claims.  A CCA
 Attestation Verification Claims are associated with a CCA platform instance by means of the Instance ID
-(see Section 3.2.1 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>) and its platform Implementation ID.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-5">These identifiers are typically found in the subject of a CoMID triple, encoded
-in an <code>environment-map</code> as shown in .<a href="#section-3.1.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-6">Optional <code>vendor</code> and <code>model</code> can be specified as well.  Together, they are
-interpreted as a unique identifier of the product that embeds the CCA platform.
-Consistently providing a product identifier is RECOMMENDED.<a href="#section-3.1.2-6" class="pilcrow">¶</a></p>
+(see Section A7.2.3.2.4 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>) and its platform Implementation ID.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-5">These identifiers are typically found in the subject of a CoMID triple, encoded in an <code>environment-map</code> as shown in <a href="#ex-cca-platform-id" class="auto internal xref">Figure 3</a>.<a href="#section-3.1.2-5" class="pilcrow">¶</a></p>
+<span id="name-example-cca-platform-identi"></span><div id="ex-cca-platform-id">
+<figure id="figure-3">
+            <div class="alignLeft art-text artwork" id="section-3.1.2-6.1">
+<pre>
+/ environment-map / {
+  / comid.class / 0 : {
+    / comid.class-id / 0 :
+      / tagged-impl-id-type / 600(
+        h'61636d652d696d706c656d656e746174
+          696f6e2d69642d303030303030303031'
+      ),
+      / comid.vendor / 1 : "ACME Ltd.",
+      / comid.model /  2 : "Roadrunner 1.0"
+  },
+  / comid.instance / 1 :
+    / tagged-ueid-type / 550(
+      h'01
+        4ca3e4f50bf248c39787020d68ffd05c
+        88767751bf2645ca923f57a98becd296'
+    )
+}
+</pre>
+</div>
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
+<a href="#name-example-cca-platform-identi" class="selfRef">Example CCA Platform Identification</a>
+            </figcaption></figure>
+</div>
+<p id="section-3.1.2-7">Optional <code>vendor</code> and <code>model</code> can be specified as well. Together, they are
+interpreted as a unique identifier of the CCA platform.
+Consistently providing a product identifier is RECOMMENDED.<a href="#section-3.1.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-ref-values">
@@ -1492,34 +1524,88 @@ Consistently providing a product identifier is RECOMMENDED.<a href="#section-3.1
           <h4 id="name-reference-values">
 <a href="#section-3.1.3" class="section-number selfRef">3.1.3. </a><a href="#name-reference-values" class="section-name selfRef">Reference Values</a>
           </h4>
-<p id="section-3.1.3-1">Reference Values carry measurements and other metadata associated with the
+<p id="section-3.1.3-1">Reference Values carry measurements and other metadata associated with the updatable firmware of
 CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
 * CCA system security domain
 * Monitor security domain
 * Realm Management Security domain<a href="#section-3.1.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-2">When appraising Evidence, the Verifier
-compares Reference Values against the values found in the Software Components
-of the CCA platform token (see Section 3.4.1 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>).<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-2">When appraising Evidence, the Verifier compares Reference Values against:
+ -  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>).
+ - the value set in the platform configuration of the CCA platform token (see Section A7.2.3.2.5 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>).<a href="#section-3.1.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.1.3-3">Each measurement is encoded in a <code>measurement-map</code> of a CoMID
 <code>reference-triple-record</code>.  Since a <code>measurement-map</code> can encode one or more
 measurements, a single <code>reference-triple-record</code> can carry as many measurements
 as needed, provided they belong to the same CCA platform identified in the subject of
 the "reference value" triple.  A single <code>reference-triple-record</code> SHALL
-completely describe the CCA platform RoT.<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-4">The identifier of a measured software component is encoded in a <code>arm-swcomp-id</code>
-object as follows:<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-5">The semantics of the codepoints in the <code>arm-swcomp-id</code> map are equivalent to
-those in the <code>arm-software-component</code> map defined in Section 3.4.1 of
-<span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>.  The <code>arm-swcomp-id</code> MUST uniquely identify a given software
-component within the CCA platform / product.<a href="#section-3.1.3-5" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-6">In order to support CCA Reference Value identifiers, the CoMID type
-<code>$measured-element-type-choice</code> is extended as follows:<a href="#section-3.1.3-6" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-7">and automatically bound to the <code>comid.mkey</code> in the <code>measurement-map</code>.<a href="#section-3.1.3-7" class="pilcrow">¶</a></p>
-<p id="section-3.1.3-8">The raw measurement is encoded in a <code>digests-type</code> object in the
-<code>measurement-values-map</code>.  The <code>digests-type</code> array MUST contain at least one
-entry.  The <code>digests-type</code> array MAY contain more than one entry if multiple
-digests (obtained with different hash algorithms) of the same measured
-component exist.<a href="#section-3.1.3-8" class="pilcrow">¶</a></p>
+completely describe the CCA platform measurements.<a href="#section-3.1.3-3" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-4">The identifier of a measured software component is encoded in a <code>arm-swcomp-id</code> object as follows <a href="#ex-swcomp-id" class="auto internal xref">Figure 4</a>:<a href="#section-3.1.3-4" class="pilcrow">¶</a></p>
+<span id="name-example-sw-component-id"></span><div id="ex-swcomp-id">
+<figure id="figure-4">
+            <div class="alignLeft art-text artwork" id="section-3.1.3-5.1">
+<pre>
+arm-swcomp-id = {
+  arm.measurement-type =&gt; text
+  arm.version =&gt; text
+  arm.signer-id =&gt; arm.hash-type
+}
+
+arm.hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
+
+arm.measurement-type = 1
+arm.version = 4
+arm.signer-id = 5
+</pre>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-example-sw-component-id" class="selfRef">Example SW Component ID</a>
+            </figcaption></figure>
+</div>
+<p id="section-3.1.3-6">The semantics of the codepoints in the <code>arm-swcomp-id</code> map are equivalent to those in the <code>cca-platform-sw-component</code> map defined in Section A7.2.3.2.7 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>.  The <code>arm-swcomp-id</code> MUST uniquely identify a given software component within the CCA platform / product.<a href="#section-3.1.3-6" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-7">In order to support CCA Reference Value identifiers, the CoMID type
+<code>$measured-element-type-choice</code> is extended as follows<a href="#ex-swcomp-id-ext" class="auto internal xref">Figure 5</a>:<a href="#section-3.1.3-7" class="pilcrow">¶</a></p>
+<span id="name-example-sw-component-id-ext"></span><div id="ex-swcomp-id-ext">
+<figure id="figure-5">
+            <div class="alignLeft art-text artwork" id="section-3.1.3-8.1">
+<pre>
+tagged-arm-swcomp-id = #6.601(arm-swcomp-id)
+
+$measured-element-type-choice /= tagged-arm-swcomp-id
+</pre>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-example-sw-component-id-ext" class="selfRef">Example SW Component ID Extension</a>
+            </figcaption></figure>
+</div>
+<p id="section-3.1.3-9">and automatically bound to the <code>comid.mkey</code> in the <code>measurement-map</code>.<a href="#section-3.1.3-9" class="pilcrow">¶</a></p>
+<p id="section-3.1.3-10">The raw measurement is encoded in a <code>digests-type</code> object in the
+<code>measurement-values-map</code>.  The <code>digests-type</code> array MUST contain at least one entry. The <code>digests-type</code> array MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist. Refer below <a href="#ex-cca-platform-ident" class="auto internal xref">Figure 6</a>.<a href="#section-3.1.3-10" class="pilcrow">¶</a></p>
+<span id="name-example-sw-component-id-exte"></span><div id="ex-cca-platform-ident">
+<figure id="figure-6">
+            <div class="alignLeft art-text artwork" id="section-3.1.3-11.1">
+<pre>
+/ environment-map / {
+  / comid.class / 0 : {
+    / comid.class-id / 0 :
+      / tagged-impl-id-type / 600(
+        h'61636d652d696d706c656d656e746174
+          696f6e2d69642d303030303030303031'
+      ),
+      / comid.vendor / 1 : "ACME Ltd.",
+      / comid.model /  2 : "Roadrunner 1.0"
+  },
+  / comid.instance / 1 :
+    / tagged-ueid-type / 550(
+      h'01
+        4ca3e4f50bf248c39787020d68ffd05c
+        88767751bf2645ca923f57a98becd296'
+    )
+}
+</pre>
+</div>
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
+<a href="#name-example-sw-component-id-exte" class="selfRef">Example SW Component ID Extension</a>
+            </figcaption></figure>
+</div>
 </section>
 </div>
 <div id="sec-keys">
@@ -1592,9 +1678,9 @@ associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.1.4-4" 
           </h4>
 <p id="section-3.2.2-1">Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-2">The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri <code>http://arm.com/cca/realm/1</code> as shown in <a href="#ex-cca-realm-profile" class="auto internal xref">Figure 2</a>.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
+set to the uri <code>http://arm.com/cca/realm/1</code> as shown in <a href="#ex-cca-realm-profile" class="auto internal xref">Figure 7</a>.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 <span id="name-cca-realm-profile-version-1"></span><div id="ex-cca-realm-profile">
-<figure id="figure-2">
+<figure id="figure-7">
             <div class="alignLeft art-text artwork" id="section-3.2.2-3.1">
 <pre>
 / corim-map / {
@@ -1605,7 +1691,7 @@ set to the uri <code>http://arm.com/cca/realm/1</code> as shown in <a href="#ex-
 }
 </pre>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
 <a href="#name-cca-realm-profile-version-1" class="selfRef">CCA realm profile version 1, CoRIM profile</a>
             </figcaption></figure>
 </div>

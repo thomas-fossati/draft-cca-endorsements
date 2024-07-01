@@ -67,22 +67,22 @@ Table of Contents
        3.1.1.  Arm CCA Platform Endorsement Profile  . . . . . . . .   3
        3.1.2.  Arm CCA Platform Endorsements linkage to CCA
                Platform  . . . . . . . . . . . . . . . . . . . . . .   3
-       3.1.3.  Reference Values  . . . . . . . . . . . . . . . . . .   4
-       3.1.4.  Attestation Verification Claims . . . . . . . . . . .   5
-     3.2.  Arm CCA Realm Endorsements  . . . . . . . . . . . . . . .   6
-       3.2.1.  Realm Endorsements linkage to Realm . . . . . . . . .   6
-       3.2.2.  Arm CCA Realm Endorsement Profile . . . . . . . . . .   6
-       3.2.3.  Reference Values  . . . . . . . . . . . . . . . . . .   7
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-     5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   8
-     5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   8
-     5.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .   8
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .   9
-   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     Normative References  . . . . . . . . . . . . . . . . . . . . .   9
-     Informative References  . . . . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+       3.1.3.  Reference Values  . . . . . . . . . . . . . . . . . .   5
+       3.1.4.  Attestation Verification Claims . . . . . . . . . . .   6
+     3.2.  Arm CCA Realm Endorsements  . . . . . . . . . . . . . . .   7
+       3.2.1.  Realm Endorsements linkage to Realm . . . . . . . . .   7
+       3.2.2.  Arm CCA Realm Endorsement Profile . . . . . . . . . .   8
+       3.2.3.  Reference Values  . . . . . . . . . . . . . . . . . .   8
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
+     5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   9
+     5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   9
+     5.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .  10
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  10
+   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     Normative References  . . . . . . . . . . . . . . . . . . . . .  10
+     Informative References  . . . . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -173,7 +173,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Verification Keys) for a CCA platform.
 
    In order to support CCA Implementation IDs, the CoMID type $class-id-
-   type-choice is extended as follows:
+   type-choice is extended as follows Figure 2:
 
    cca-implementation-id-type = bytes .size 32
 
@@ -181,43 +181,43 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
    $class-id-type-choice /= tagged-implementation-id-type
 
+              Figure 2: Example CCA Platform Implementation ID
+
    Besides, a CCA Endorsement can be associated with a specific instance
-   of a certain CCA Platform implementation - as in the case of
+   of a certain CCA Platform implementation - as is the case of
    Attestation Verification Claims.  A CCA Attestation Verification
    Claims are associated with a CCA platform instance by means of the
-   Instance ID (see Section 3.2.1 of [CCA-TOKEN]) and its platform
+   Instance ID (see Section A7.2.3.2.4 of [CCA-TOKEN]) and its platform
    Implementation ID.
 
    These identifiers are typically found in the subject of a CoMID
-   triple, encoded in an environment-map as shown in .
+   triple, encoded in an environment-map as shown in Figure 3.
+
+   / environment-map / {
+     / comid.class / 0 : {
+       / comid.class-id / 0 :
+         / tagged-impl-id-type / 600(
+           h'61636d652d696d706c656d656e746174
+             696f6e2d69642d303030303030303031'
+         ),
+         / comid.vendor / 1 : "ACME Ltd.",
+         / comid.model /  2 : "Roadrunner 1.0"
+     },
+     / comid.instance / 1 :
+       / tagged-ueid-type / 550(
+         h'01
+           4ca3e4f50bf248c39787020d68ffd05c
+           88767751bf2645ca923f57a98becd296'
+       )
+   }
+
+               Figure 3: Example CCA Platform Identification
 
    Optional vendor and model can be specified as well.  Together, they
-   are interpreted as a unique identifier of the product that embeds the
-   CCA platform.  Consistently providing a product identifier is
-   RECOMMENDED.
+   are interpreted as a unique identifier of the CCA platform.
+   Consistently providing a product identifier is RECOMMENDED.
 
-3.1.3.  Reference Values
 
-   Reference Values carry measurements and other metadata associated
-   with the CCA platform.  The CCA platform is a collective term used to
-   identify all the hardware and firmware components on a CCCA enabled
-   system.  This includes * CCA system security domain * Monitor
-   security domain * Realm Management Security domain
-
-   When appraising Evidence, the Verifier compares Reference Values
-   against the values found in the Software Components of the CCA
-   platform token (see Section 3.4.1 of [CCA-TOKEN]).
-
-   Each measurement is encoded in a measurement-map of a CoMID
-   reference-triple-record.  Since a measurement-map can encode one or
-   more measurements, a single reference-triple-record can carry as many
-   measurements as needed, provided they belong to the same CCA platform
-   identified in the subject of the "reference value" triple.  A single
-   reference-triple-record SHALL completely describe the CCA platform
-   RoT.
-
-   The identifier of a measured software component is encoded in a arm-
-   swcomp-id object as follows:
 
 
 
@@ -226,14 +226,67 @@ Deshpande & Fossati      Expires 2 January 2025                 [Page 4]
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
+3.1.3.  Reference Values
+
+   Reference Values carry measurements and other metadata associated
+   with the updatable firmware of CCA platform.  The CCA platform is a
+   collective term used to identify all the hardware and firmware
+   components on a CCCA enabled system.  This includes * CCA system
+   security domain * Monitor security domain * Realm Management Security
+   domain
+
+   When appraising Evidence, the Verifier compares Reference Values
+   against: - the values found in the Software Components of the CCA
+   platform token (see Section A7.2.3.2.7 of [CCA-TOKEN]).  - the value
+   set in the platform configuration of the CCA platform token (see
+   Section A7.2.3.2.5 of [CCA-TOKEN]).
+
+   Each measurement is encoded in a measurement-map of a CoMID
+   reference-triple-record.  Since a measurement-map can encode one or
+   more measurements, a single reference-triple-record can carry as many
+   measurements as needed, provided they belong to the same CCA platform
+   identified in the subject of the "reference value" triple.  A single
+   reference-triple-record SHALL completely describe the CCA platform
+   measurements.
+
+   The identifier of a measured software component is encoded in a arm-
+   swcomp-id object as follows Figure 4:
+
+   arm-swcomp-id = {
+     arm.measurement-type => text
+     arm.version => text
+     arm.signer-id => arm.hash-type
+   }
+
+   arm.hash-type = bytes .size 32 / bytes .size 48 / bytes .size 64
+
+   arm.measurement-type = 1
+   arm.version = 4
+   arm.signer-id = 5
+
+                     Figure 4: Example SW Component ID
+
    The semantics of the codepoints in the arm-swcomp-id map are
-   equivalent to those in the arm-software-component map defined in
-   Section 3.4.1 of [CCA-TOKEN].  The arm-swcomp-id MUST uniquely
+   equivalent to those in the cca-platform-sw-component map defined in
+   Section A7.2.3.2.7 of [CCA-TOKEN].  The arm-swcomp-id MUST uniquely
    identify a given software component within the CCA platform /
    product.
 
    In order to support CCA Reference Value identifiers, the CoMID type
-   $measured-element-type-choice is extended as follows:
+   $measured-element-type-choice is extended as followsFigure 5:
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 5]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
+   tagged-arm-swcomp-id = #6.601(arm-swcomp-id)
+
+   $measured-element-type-choice /= tagged-arm-swcomp-id
+
+                Figure 5: Example SW Component ID Extension
 
    and automatically bound to the comid.mkey in the measurement-map.
 
@@ -241,7 +294,27 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    measurement-values-map.  The digests-type array MUST contain at least
    one entry.  The digests-type array MAY contain more than one entry if
    multiple digests (obtained with different hash algorithms) of the
-   same measured component exist.
+   same measured component exist.  Refer below Figure 6.
+
+   / environment-map / {
+     / comid.class / 0 : {
+       / comid.class-id / 0 :
+         / tagged-impl-id-type / 600(
+           h'61636d652d696d706c656d656e746174
+             696f6e2d69642d303030303030303031'
+         ),
+         / comid.vendor / 1 : "ACME Ltd.",
+         / comid.model /  2 : "Roadrunner 1.0"
+     },
+     / comid.instance / 1 :
+       / tagged-ueid-type / 550(
+         h'01
+           4ca3e4f50bf248c39787020d68ffd05c
+           88767751bf2645ca923f57a98becd296'
+       )
+   }
+
+                Figure 6: Example SW Component ID Extension
 
 3.1.4.  Attestation Verification Claims
 
@@ -256,6 +329,14 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Each verification key is provided alongside the corresponding device
    Instance and Implementation IDs (and, possibly, a product identifier)
    in an attest-key-triple-record.  Specifically:
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 6]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
    *  The Instance and Implementation IDs are encoded in the
       environment-map as shown in
@@ -273,14 +354,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    The example in shows the CCA Endorsement of type Attestation
    Verification Claim carrying a secp256r1 EC public IAK associated with
    Instance ID 4ca3...d296.
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 5]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
 3.2.  Arm CCA Realm Endorsements
 
@@ -313,6 +386,14 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    may wish to identify itself.  Hence the following class related
    elements in the environment-map of a comid can be used.
 
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 7]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
    In the class-map select vendor name and/or class-id set as UUID
    representing unique identity for the Realm owner.
 
@@ -326,17 +407,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
    The profile attribute in the CoRIM MUST be present and MUST have a
    single entry set to the uri http://arm.com/cca/realm/1 as shown in
-   Figure 2.
-
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 6]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
+   Figure 7.
 
    / corim-map / {
      / corim.profile / 3: [
@@ -345,7 +416,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
      / ... /
    }
 
-            Figure 2: CCA realm profile version 1, CoRIM profile
+            Figure 7: CCA realm profile version 1, CoRIM profile
 
 3.2.3.  Reference Values
 
@@ -369,6 +440,16 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    the name "rim", while REMs which is an array of measurements from
    1..4 are uniquely identified by the coresponding name "rem0".."rem3".
 
+
+
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 8]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
    Realm Personalization Value, (RPV) is an optional identity used by a
    Realm endorser to uniquely identify multiple Realms which all have
    same RIM.  RPV if provided is a fixed length 64 bytes identifier.  In
@@ -384,15 +465,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
    // TODO
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 7]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
 5.  IANA Considerations
 
@@ -427,6 +499,13 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
                  Table 2: CCA platform profile for CoRIM
 
+
+
+Deshpande & Fossati      Expires 2 January 2025                 [Page 9]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
     +============================+======+============================+
     | Profile Value              | Type | Semantics                  |
     +============================+======+============================+
@@ -440,15 +519,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
    IANA is requested to register the following codepoints to the "CoMID
    Triples Map" registry.
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 8]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
             +=======+=========================+===============+
             | Index | Item Name               | Specification |
@@ -484,6 +554,14 @@ Normative References
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+
+
+
+Deshpande & Fossati      Expires 2 January 2025                [Page 10]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
@@ -495,16 +573,6 @@ Normative References
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
 Informative References
-
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 9]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
 
    [CCA-TOKEN]
               "Realm Management Monitor specification", 2022,
@@ -545,16 +613,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                [Page 10]
+Deshpande & Fossati      Expires 2 January 2025                [Page 11]

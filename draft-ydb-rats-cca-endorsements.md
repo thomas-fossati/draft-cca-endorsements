@@ -105,66 +105,75 @@ uniquely identifies a class of CCA platform to which the manufacturer/endorser l
 Endorsements (Reference Values & Attestation Verification Keys) for a CCA platform.
 
 In order to support CCA Implementation IDs, the CoMID type
-`$class-id-type-choice` is extended as follows:
+`$class-id-type-choice` is extended as follows {{ex-cca-platform-impl-id}}:
 
 ~~~
 {::include cca-ext/tagged-cca-impl-id.cddl}
 ~~~
+{: #ex-cca-platform-impl-id title="Example CCA Platform Implementation ID" }
 
 Besides, a CCA Endorsement can be associated with a specific instance of a
-certain CCA Platform implementation - as in the case of Attestation Verification Claims.  A CCA
+certain CCA Platform implementation - as is the case of Attestation Verification Claims.  A CCA
 Attestation Verification Claims are associated with a CCA platform instance by means of the Instance ID
-(see Section 3.2.1 of {{CCA-TOKEN}}) and its platform Implementation ID.
+(see Section A7.2.3.2.4 of {{CCA-TOKEN}}) and its platform Implementation ID.
 
-These identifiers are typically found in the subject of a CoMID triple, encoded
-in an `environment-map` as shown in .
+These identifiers are typically found in the subject of a CoMID triple, encoded in an `environment-map` as shown in {{ex-cca-platform-id}}.
 
+~~~
+{::include examples/cca-platform-identification.diag}
+~~~
+{: #ex-cca-platform-id title="Example CCA Platform Identification" }
 
-Optional `vendor` and `model` can be specified as well.  Together, they are
-interpreted as a unique identifier of the product that embeds the CCA platform.
+Optional `vendor` and `model` can be specified as well. Together, they are
+interpreted as a unique identifier of the CCA platform.
 Consistently providing a product identifier is RECOMMENDED.
 
 ### Reference Values
 {: #sec-ref-values}
 
-Reference Values carry measurements and other metadata associated with the
+Reference Values carry measurements and other metadata associated with the updatable firmware of
 CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
 * CCA system security domain
 * Monitor security domain
 * Realm Management Security domain
 
-When appraising Evidence, the Verifier
-compares Reference Values against the values found in the Software Components
-of the CCA platform token (see Section 3.4.1 of {{CCA-TOKEN}}).
+When appraising Evidence, the Verifier compares Reference Values against:
+ -  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of {{CCA-TOKEN}}).
+ - the value set in the platform configuration of the CCA platform token (see Section A7.2.3.2.5 of {{CCA-TOKEN}}).
 
 Each measurement is encoded in a `measurement-map` of a CoMID
 `reference-triple-record`.  Since a `measurement-map` can encode one or more
 measurements, a single `reference-triple-record` can carry as many measurements
 as needed, provided they belong to the same CCA platform identified in the subject of
 the "reference value" triple.  A single `reference-triple-record` SHALL
-completely describe the CCA platform RoT.
+completely describe the CCA platform measurements.
 
-The identifier of a measured software component is encoded in a `arm-swcomp-id`
-object as follows:
+The identifier of a measured software component is encoded in a `arm-swcomp-id` object as follows {{ex-swcomp-id}}:
 
+~~~
+{::include cca-ext/swcomp-id.cddl}
+~~~
+{: #ex-swcomp-id title="Example SW Component ID" }
 
-The semantics of the codepoints in the `arm-swcomp-id` map are equivalent to
-those in the `arm-software-component` map defined in Section 3.4.1 of
-{{CCA-TOKEN}}.  The `arm-swcomp-id` MUST uniquely identify a given software
-component within the CCA platform / product.
+The semantics of the codepoints in the `arm-swcomp-id` map are equivalent to those in the `cca-platform-sw-component` map defined in Section A7.2.3.2.7 of {{CCA-TOKEN}}.  The `arm-swcomp-id` MUST uniquely identify a given software component within the CCA platform / product.
 
 In order to support CCA Reference Value identifiers, the CoMID type
-`$measured-element-type-choice` is extended as follows:
+`$measured-element-type-choice` is extended as follows{{ex-swcomp-id-ext}}:
 
+~~~
+{::include cca-ext/swcomp-id-ext.cddl}
+~~~
+{: #ex-swcomp-id-ext title="Example SW Component ID Extension" }
 
 and automatically bound to the `comid.mkey` in the `measurement-map`.
 
 The raw measurement is encoded in a `digests-type` object in the
-`measurement-values-map`.  The `digests-type` array MUST contain at least one
-entry.  The `digests-type` array MAY contain more than one entry if multiple
-digests (obtained with different hash algorithms) of the same measured
-component exist.
+`measurement-values-map`.  The `digests-type` array MUST contain at least one entry. The `digests-type` array MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist. Refer below {{ex-cca-platform-ident}}.
 
+~~~
+{::include examples/cca-platform-identification.diag}
+~~~
+{: #ex-cca-platform-ident title="Example SW Component ID Extension" }
 
 ### Attestation Verification Claims
 {: #sec-keys}
