@@ -107,6 +107,10 @@ Endorsements (Reference Values & Attestation Verification Keys) for a CCA platfo
 In order to support CCA Implementation IDs, the CoMID type
 `$class-id-type-choice` is extended as follows:
 
+~~~
+{::include cca-ext/tagged-cca-impl-id.cddl}
+~~~
+
 Besides, a CCA Endorsement can be associated with a specific instance of a
 certain CCA Platform implementation - as in the case of Attestation Verification Claims.  A CCA
 Attestation Verification Claims are associated with a CCA platform instance by means of the Instance ID

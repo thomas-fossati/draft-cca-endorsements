@@ -1467,15 +1467,24 @@ uniquely identifies a class of CCA platform to which the manufacturer/endorser l
 Endorsements (Reference Values &amp; Attestation Verification Keys) for a CCA platform.<a href="#section-3.1.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.1.2-2">In order to support CCA Implementation IDs, the CoMID type
 <code>$class-id-type-choice</code> is extended as follows:<a href="#section-3.1.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-3">Besides, a CCA Endorsement can be associated with a specific instance of a
+<div class="alignLeft art-text artwork" id="section-3.1.2-3">
+<pre>
+cca-implementation-id-type = bytes .size 32
+
+tagged-implementation-id-type = #6.600(implementation-id-type)
+
+$class-id-type-choice /= tagged-implementation-id-type
+</pre><a href="#section-3.1.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-3.1.2-4">Besides, a CCA Endorsement can be associated with a specific instance of a
 certain CCA Platform implementation - as in the case of Attestation Verification Claims.  A CCA
 Attestation Verification Claims are associated with a CCA platform instance by means of the Instance ID
-(see Section 3.2.1 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>) and its platform Implementation ID.<a href="#section-3.1.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-4">These identifiers are typically found in the subject of a CoMID triple, encoded
-in an <code>environment-map</code> as shown in .<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.1.2-5">Optional <code>vendor</code> and <code>model</code> can be specified as well.  Together, they are
+(see Section 3.2.1 of <span>[<a href="#CCA-TOKEN" class="cite xref">CCA-TOKEN</a>]</span>) and its platform Implementation ID.<a href="#section-3.1.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-5">These identifiers are typically found in the subject of a CoMID triple, encoded
+in an <code>environment-map</code> as shown in .<a href="#section-3.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.1.2-6">Optional <code>vendor</code> and <code>model</code> can be specified as well.  Together, they are
 interpreted as a unique identifier of the product that embeds the CCA platform.
-Consistently providing a product identifier is RECOMMENDED.<a href="#section-3.1.2-5" class="pilcrow">¶</a></p>
+Consistently providing a product identifier is RECOMMENDED.<a href="#section-3.1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-ref-values">
