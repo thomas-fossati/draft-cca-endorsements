@@ -248,8 +248,8 @@ the Verifier uses the Implementation ID and Instance ID claims (see
 the signature on the CCA platform token.  This allows the Verifier to prove (or disprove)
 the Attester's claimed identity.</t>
 
-<t>Each verification key is provided alongside the corresponding device Instance
-and Implementation IDs (and, possibly, a product identifier) in an
+<t>Each verification key is provided alongside the corresponding CCA platform Instance
+and Implementation IDs (and, possibly, a CCA platform product identifier) in an
 <spanx style="verb">attest-key-triple-record</spanx>.  Specifically:</t>
 
 <t><list style="symbols">
@@ -282,21 +282,36 @@ associated with Instance ID <spanx style="verb">4ca3...d296</spanx>.</t>
 
 <section anchor="realm-endorsements-linkage-to-realm"><name>Realm Endorsements linkage to Realm</name>
 
-<t>Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is be a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an <spanx style="verb">environment-map</spanx> with <spanx style="verb">$instance-id-type-choice</spanx> set to <spanx style="verb">tagged-bytes</spanx>, i.e. An opaque, variable-length byte string. In this profile of CCA Endorsements, the Realm Initial Measurements are set in <spanx style="verb">tagged-bytes</spanx> to represent Realm instance.</t>
+<t>Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an <spanx style="verb">environment-map</spanx> with <spanx style="verb">$instance-id-type-choice</spanx> set to <spanx style="verb">tagged-bytes</spanx>, i.e. An opaque, variable-length byte string. In this profile of CCA Endorsements, the Realm Initial Measurements are set in <spanx style="verb">tagged-bytes</spanx> to represent Realm instance.</t>
 
-<t>When supplying Realm Endorsements, a supplier of one or more Realms may wish to identify itself. Hence the following class related elements in the <spanx style="verb">environment-map</spanx> of a  <spanx style="verb">comid</spanx> can be used.</t>
+<t>When supplying Realm Endorsements, a supplier of one or more Realms may wish to identify itself. Hence the following class related elements in the <spanx style="verb">environment-map</spanx> of a  <spanx style="verb">comid</spanx> can be used. See <xref target="ex-cca-realm-identifiers"/></t>
 
-<t>In the <spanx style="verb">class-map</spanx> select 
-<spanx style="verb">vendor</spanx> name and/or <spanx style="verb">class-id</spanx> set as <spanx style="verb">UUID</spanx> representing unique identity for the Realm owner.</t>
+<t>In the <spanx style="verb">class-map</spanx> select <spanx style="verb">vendor</spanx> name and/or <spanx style="verb">class-id</spanx> set as <spanx style="verb">UUID</spanx> representing unique identity of the Realm owner.</t>
 
 <t>$class-id-type-choice /= tagged-uuid-type</t>
 
 <t>vendor =&gt; <spanx style="verb">tstr</spanx> to represent vendor name</t>
 
+<figure title="CCA realm identifiers" anchor="ex-cca-realm-identifiers"><artwork><![CDATA[
+/ environment-map / {
+  / comid.class / 0 : {
+    / comid.class-id / 0 :
+        / tagged-uuid-type / 37(
+            h'67b28b6c34cc40a19117ab5b05911e37'
+            ),
+        / comid.vendor / 1 : "Workload Client Ltd",
+  },
+  / comid.instance / 1 :
+    / tagged-bytes / 560(
+          h'67b28b6c39cc40a19117ab5b05911e37'
+          )
+}
+]]></artwork></figure>
+
 </section>
 <section anchor="arm-cca-realm-endorsement-profile"><name>Arm CCA Realm Endorsement Profile</name>
 
-<t>Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.</t>
+<t>Arm CCA Realm Endorsements are carried in a CoMID inside a CoRIM.</t>
 
 <t>The profile attribute in the CoRIM MUST be present and MUST have a single entry
 set to the uri <spanx style="verb">http://arm.com/cca/realm/1</spanx> as shown in <xref target="ex-cca-realm-profile"/>.</t>
@@ -325,11 +340,82 @@ CCA Realm.</t>
 
 <t>All the measured objects in an Integrity Registers map are explicitly named. In the context of Realms, the measured objects are RIM and REMs. Inside Integrity Register map, RIM is uniquely identified by the name "rim", while REMs which is an array of measurements from 1..4 are uniquely identified by the coresponding name "rem0".."rem3".</t>
 
-<t>Realm Personalization Value, (RPV) is an optional identity used by a Realm endorser to uniquely identify multiple Realms which all have same RIM. RPV if provided is a fixed length 64 bytes identifier. In this profile, RPV is represented using Raw Value Measurements in a <spanx style="verb">measurement-values-map</spanx>, with raw value type choice set to <spanx style="verb">tagged-bytes</spanx>.</t>
+<t>Realm Personalization Value, (RPV) is an optional identity used by a Realm endorser to uniquely identify multiple Realms which all have same RIM. RPV if provided is a fixed length 64 bytes identifier. In this profile, RPV is represented using Raw Value Measurements in a <spanx style="verb">measurement-values-map</spanx>, with raw value type choice set to <spanx style="verb">tagged-bytes</spanx>. See <xref target="ex-cca-realm-refval"/></t>
 
 <t>$raw-value-type-choice /= tagged-bytes</t>
 
 <t>Given below is the complete example of a Realm Endorsements.</t>
+
+<figure title="CCA realm identifiers" anchor="ex-cca-realm-refval"><artwork><![CDATA[
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.reference-triples / 0 : [
+      [
+        / environment-map / {
+            / comid.class / 0 : {
+                / comid.class-id / 0 :
+                    / tagged-uuid-type / 37(
+                        h'67b28b6c34cc40a19117ab5b05911e37'
+                        ),
+                / comid.vendor / 1 : "Workload Client Ltd"
+              },
+            / comid.instance / 1 :
+                / tagged-bytes / 560(
+                    h'67b28b6c39cc40a19117ab5b05911e37'
+                    )
+           },
+        [
+        / measurement-map / {
+            / comid.mval / 1 : {
+              / comid.raw-value / 4 : {
+                / tagged-bytes / 560(
+                    h'ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB
+ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB',
+                  ) 
+              },
+              / comid.integrity-registers / 14 : {
+                "rim": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'44aa336af4cb14a879432e53dd6571c7fa9bccafb75f488259262d6ea3a4d91b'
+                ]
+              ],
+                "rem0": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e58dd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem1": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e59dd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem2": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e5add6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem3": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e5bdd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ]
+            }
+          }
+        }
+       ]
+      ]
+    ]
+  }
+}
+]]></artwork></figure>
 
 </section>
 </section>
@@ -380,24 +466,6 @@ CCA Realm.</t>
       <c><spanx style="verb">http://arm.com/cca/realm/1</spanx></c>
       <c>uri</c>
       <c>The CoRIM profile specified by this document</c>
-</texttable>
-
-</section>
-<section anchor="comid-codepoints"><name>CoMID Codepoints</name>
-
-<t>IANA is requested to register the following codepoints to the "CoMID Triples
-Map" registry.</t>
-
-<texttable title="PSA CoMID Triples" anchor="tbl-psa-comid-triples">
-      <ttcol align='left'>Index</ttcol>
-      <ttcol align='left'>Item Name</ttcol>
-      <ttcol align='left'>Specification</ttcol>
-      <c>4</c>
-      <c>comid.psa-cert-triples</c>
-      <c>RFCTHIS</c>
-      <c>5</c>
-      <c>comid.psa-swrel-triples</c>
-      <c>RFCTHIS</c>
 </texttable>
 
 </section>
@@ -559,114 +627,123 @@ Map" registry.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-XZGsFhMItcJ3rSTFWU2I/C8Yht4b0zgAAA==
+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
+wfO9OMFpdR/wP0S1g/avQgAA
 
 -->
 

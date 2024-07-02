@@ -5,8 +5,8 @@
 RATS                                                        Y. Deshpande
 Internet-Draft                                                   Arm Ltd
 Intended status: Informational                                T. Fossati
-Expires: 2 January 2025                                           Linaro
-                                                             1 July 2024
+Expires: 3 January 2025                                           Linaro
+                                                             2 July 2024
 
 
 Arm's Confidential Computing Architecture (Arm CCA) Attestation Verifier
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 January 2025.
+   This Internet-Draft will expire on 3 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 1]
+Deshpande & Fossati      Expires 3 January 2025                 [Page 1]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
@@ -73,16 +73,15 @@ Table of Contents
        3.2.1.  Realm Endorsements linkage to Realm . . . . . . . . .   7
        3.2.2.  Arm CCA Realm Endorsement Profile . . . . . . . . . .   8
        3.2.3.  Reference Values  . . . . . . . . . . . . . . . . . .   8
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-     5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .   9
-     5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .   9
-     5.3.  CoMID Codepoints  . . . . . . . . . . . . . . . . . . . .  10
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  10
-   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     Normative References  . . . . . . . . . . . . . . . . . . . . .  10
-     Informative References  . . . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
+     5.1.  CBOR Tag Registrations  . . . . . . . . . . . . . . . . .  11
+     5.2.  CoRIM Profile Registration  . . . . . . . . . . . . . . .  11
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   References  . . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     Normative References  . . . . . . . . . . . . . . . . . . . . .  12
+     Informative References  . . . . . . . . . . . . . . . . . . . .  12
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
@@ -109,7 +108,8 @@ Table of Contents
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 2]
+
+Deshpande & Fossati      Expires 3 January 2025                 [Page 2]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
@@ -165,7 +165,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 3]
+Deshpande & Fossati      Expires 3 January 2025                 [Page 3]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
@@ -221,7 +221,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 4]
+Deshpande & Fossati      Expires 3 January 2025                 [Page 4]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
@@ -277,7 +277,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 5]
+Deshpande & Fossati      Expires 3 January 2025                 [Page 5]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
@@ -326,14 +326,14 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    token.  This allows the Verifier to prove (or disprove) the
    Attester's claimed identity.
 
-   Each verification key is provided alongside the corresponding device
-   Instance and Implementation IDs (and, possibly, a product identifier)
-   in an attest-key-triple-record.  Specifically:
+   Each verification key is provided alongside the corresponding CCA
+   platform Instance and Implementation IDs (and, possibly, a CCA
+   platform product identifier) in an attest-key-triple-record.
+   Specifically:
 
 
 
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 6]
+Deshpande & Fossati      Expires 3 January 2025                 [Page 6]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
@@ -375,7 +375,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Each Realm has a unique execution context and hence a unique Realm
    instance.  Each Realm is uniquely identified in the Arm CCA system.
    For a realm its Endorsements are associated to this unique instance.
-   The realm instance is be a vendor defined variable length identifier.
+   The realm instance is a vendor defined variable length identifier.
    Hence in this profile, it is represented in a CoMID inside an
    environment-map with $instance-id-type-choice set to tagged-bytes,
    i.e. An opaque, variable-length byte string.  In this profile of CCA
@@ -384,30 +384,46 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
    When supplying Realm Endorsements, a supplier of one or more Realms
    may wish to identify itself.  Hence the following class related
-   elements in the environment-map of a comid can be used.
+   elements in the environment-map of a comid can be used.  See Figure 7
 
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                 [Page 7]
+Deshpande & Fossati      Expires 3 January 2025                 [Page 7]
 
 Internet-Draft            Arm CCA Endorsements                 July 2024
 
 
    In the class-map select vendor name and/or class-id set as UUID
-   representing unique identity for the Realm owner.
+   representing unique identity of the Realm owner.
 
    $class-id-type-choice /= tagged-uuid-type
 
    vendor => tstr to represent vendor name
 
+   / environment-map / {
+     / comid.class / 0 : {
+       / comid.class-id / 0 :
+           / tagged-uuid-type / 37(
+               h'67b28b6c34cc40a19117ab5b05911e37'
+               ),
+           / comid.vendor / 1 : "Workload Client Ltd",
+     },
+     / comid.instance / 1 :
+       / tagged-bytes / 560(
+             h'67b28b6c39cc40a19117ab5b05911e37'
+             )
+   }
+
+                      Figure 7: CCA realm identifiers
+
 3.2.2.  Arm CCA Realm Endorsement Profile
 
-   Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.
+   Arm CCA Realm Endorsements are carried in a CoMID inside a CoRIM.
 
    The profile attribute in the CoRIM MUST be present and MUST have a
    single entry set to the uri http://arm.com/cca/realm/1 as shown in
-   Figure 7.
+   Figure 8.
 
    / corim-map / {
      / corim.profile / 3: [
@@ -416,7 +432,7 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
      / ... /
    }
 
-            Figure 7: CCA realm profile version 1, CoRIM profile
+            Figure 8: CCA realm profile version 1, CoRIM profile
 
 3.2.3.  Reference Values
 
@@ -426,6 +442,13 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    Realm reference values comprise of: 1.  Realm Initial Measurements
    (RIM) 2.  Realm Extended Measurements (REMs)
    3.  Realm Personalization Value (RPV)
+
+
+
+Deshpande & Fossati      Expires 3 January 2025                 [Page 8]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
    RIM and REMs are encoded in a measurement-values-map (in a
    measurement-map) of a CoMID reference-triple-record.  Inside
@@ -440,26 +463,104 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
    the name "rim", while REMs which is an array of measurements from
    1..4 are uniquely identified by the coresponding name "rem0".."rem3".
 
-
-
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 8]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
-
    Realm Personalization Value, (RPV) is an optional identity used by a
    Realm endorser to uniquely identify multiple Realms which all have
    same RIM.  RPV if provided is a fixed length 64 bytes identifier.  In
    this profile, RPV is represented using Raw Value Measurements in a
    measurement-values-map, with raw value type choice set to tagged-
-   bytes.
+   bytes.  See Figure 9
 
    $raw-value-type-choice /= tagged-bytes
 
    Given below is the complete example of a Realm Endorsements.
+
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.reference-triples / 0 : [
+      [
+        / environment-map / {
+            / comid.class / 0 : {
+                / comid.class-id / 0 :
+                    / tagged-uuid-type / 37(
+                        h'67b28b6c34cc40a19117ab5b05911e37'
+                        ),
+                / comid.vendor / 1 : "Workload Client Ltd"
+              },
+            / comid.instance / 1 :
+                / tagged-bytes / 560(
+                    h'67b28b6c39cc40a19117ab5b05911e37'
+                    )
+           },
+        [
+        / measurement-map / {
+            / comid.mval / 1 : {
+              / comid.raw-value / 4 : {
+
+
+
+Deshpande & Fossati      Expires 3 January 2025                 [Page 9]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
+
+                / tagged-bytes / 560(
+                    h'ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB
+ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB',
+                  )
+              },
+              / comid.integrity-registers / 14 : {
+                "rim": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'44aa336af4cb14a879432e53dd6571c7fa9bccafb75f488259262d6ea3a4d91b'
+                ]
+              ],
+                "rem0": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e58dd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem1": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e59dd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem2": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e5add6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem3": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e5bdd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ]
+            }
+          }
+        }
+       ]
+      ]
+    ]
+  }
+}
+
+                   Figure 9: CCA realm identifiers
+
+
+
+
+
+Deshpande & Fossati      Expires 3 January 2025                [Page 10]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
 4.  Security Considerations
 
@@ -499,13 +600,6 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
                  Table 2: CCA platform profile for CoRIM
 
-
-
-Deshpande & Fossati      Expires 2 January 2025                 [Page 9]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
-
     +============================+======+============================+
     | Profile Value              | Type | Semantics                  |
     +============================+======+============================+
@@ -515,20 +609,14 @@ Internet-Draft            Arm CCA Endorsements                 July 2024
 
                    Table 3: CCA realm profile for CoRIM
 
-5.3.  CoMID Codepoints
 
-   IANA is requested to register the following codepoints to the "CoMID
-   Triples Map" registry.
 
-            +=======+=========================+===============+
-            | Index | Item Name               | Specification |
-            +=======+=========================+===============+
-            | 4     | comid.psa-cert-triples  | RFCTHIS       |
-            +-------+-------------------------+---------------+
-            | 5     | comid.psa-swrel-triples | RFCTHIS       |
-            +-------+-------------------------+---------------+
 
-                         Table 4: PSA CoMID Triples
+
+Deshpande & Fossati      Expires 3 January 2025                [Page 11]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
 Acknowledgements
 
@@ -554,14 +642,6 @@ Normative References
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-
-
-
-Deshpande & Fossati      Expires 2 January 2025                [Page 10]
-
-Internet-Draft            Arm CCA Endorsements                 July 2024
-
-
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
@@ -584,6 +664,15 @@ Informative References
               W. Pan, "Remote ATtestation procedureS (RATS)
               Architecture", RFC 9334, DOI 10.17487/RFC9334, January
               2023, <https://www.rfc-editor.org/rfc/rfc9334>.
+
+
+
+
+
+Deshpande & Fossati      Expires 3 January 2025                [Page 12]
+
+Internet-Draft            Arm CCA Endorsements                 July 2024
+
 
 Authors' Addresses
 
@@ -613,4 +702,27 @@ Authors' Addresses
 
 
 
-Deshpande & Fossati      Expires 2 January 2025                [Page 11]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Deshpande & Fossati      Expires 3 January 2025                [Page 13]

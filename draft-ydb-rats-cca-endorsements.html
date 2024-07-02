@@ -1213,7 +1213,7 @@ li > p:last-of-type:only-child {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Deshpande &amp; Fossati</td>
-<td class="center">Expires 2 January 2025</td>
+<td class="center">Expires 3 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1226,12 +1226,12 @@ li > p:last-of-type:only-child {
 <dd class="internet-draft">draft-ydb-rats-cca-endorsements-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-01" class="published">1 July 2024</time>
+<time datetime="2024-07-02" class="published">2 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-02">2 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-03">3 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1270,7 +1270,7 @@ appraise Attestation Evidence produced by Arm CCA system.<a href="#section-abstr
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1352,9 +1352,6 @@ appraise Attestation Evidence produced by Arm CCA system.<a href="#section-abstr
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-corim-profile-registration" class="internal xref">CoRIM Profile Registration</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-comid-codepoints" class="internal xref">CoMID Codepoints</a></p>
 </li>
             </ul>
 </li>
@@ -1619,8 +1616,8 @@ the Verifier uses the Implementation ID and Instance ID claims (see
 <a href="#sec-cca-rot-id" class="auto internal xref">Section 3.1.2</a>) to retrieve the verification key that it SHALL use to check
 the signature on the CCA platform token.  This allows the Verifier to prove (or disprove)
 the Attester's claimed identity.<a href="#section-3.1.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.1.4-2">Each verification key is provided alongside the corresponding device Instance
-and Implementation IDs (and, possibly, a product identifier) in an
+<p id="section-3.1.4-2">Each verification key is provided alongside the corresponding CCA platform Instance
+and Implementation IDs (and, possibly, a CCA platform product identifier) in an
 <code>attest-key-triple-record</code>.  Specifically:<a href="#section-3.1.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.1.4-3.1">
@@ -1663,12 +1660,34 @@ associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.1.4-4" 
           <h4 id="name-realm-endorsements-linkage-">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-realm-endorsements-linkage-" class="section-name selfRef">Realm Endorsements linkage to Realm</a>
           </h4>
-<p id="section-3.2.1-1">Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is be a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an <code>environment-map</code> with <code>$instance-id-type-choice</code> set to <code>tagged-bytes</code>, i.e. An opaque, variable-length byte string. In this profile of CCA Endorsements, the Realm Initial Measurements are set in <code>tagged-bytes</code> to represent Realm instance.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.2.1-2">When supplying Realm Endorsements, a supplier of one or more Realms may wish to identify itself. Hence the following class related elements in the <code>environment-map</code> of a  <code>comid</code> can be used.<a href="#section-3.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.2.1-3">In the <code>class-map</code> select 
-<code>vendor</code> name and/or <code>class-id</code> set as <code>UUID</code> representing unique identity for the Realm owner.<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an <code>environment-map</code> with <code>$instance-id-type-choice</code> set to <code>tagged-bytes</code>, i.e. An opaque, variable-length byte string. In this profile of CCA Endorsements, the Realm Initial Measurements are set in <code>tagged-bytes</code> to represent Realm instance.<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-2">When supplying Realm Endorsements, a supplier of one or more Realms may wish to identify itself. Hence the following class related elements in the <code>environment-map</code> of a  <code>comid</code> can be used. See <a href="#ex-cca-realm-identifiers" class="auto internal xref">Figure 7</a><a href="#section-3.2.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-3">In the <code>class-map</code> select <code>vendor</code> name and/or <code>class-id</code> set as <code>UUID</code> representing unique identity of the Realm owner.<a href="#section-3.2.1-3" class="pilcrow">¶</a></p>
 <p id="section-3.2.1-4">$class-id-type-choice /= tagged-uuid-type<a href="#section-3.2.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.2.1-5">vendor =&gt; <code>tstr</code> to represent vendor name<a href="#section-3.2.1-5" class="pilcrow">¶</a></p>
+<span id="name-cca-realm-identifiers"></span><div id="ex-cca-realm-identifiers">
+<figure id="figure-7">
+            <div class="alignLeft art-text artwork" id="section-3.2.1-6.1">
+<pre>
+/ environment-map / {
+  / comid.class / 0 : {
+    / comid.class-id / 0 :
+        / tagged-uuid-type / 37(
+            h'67b28b6c34cc40a19117ab5b05911e37'
+            ),
+        / comid.vendor / 1 : "Workload Client Ltd",
+  },
+  / comid.instance / 1 :
+    / tagged-bytes / 560(
+          h'67b28b6c39cc40a19117ab5b05911e37'
+          )
+}
+</pre>
+</div>
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<a href="#name-cca-realm-identifiers" class="selfRef">CCA realm identifiers</a>
+            </figcaption></figure>
+</div>
 </section>
 </div>
 <div id="arm-cca-realm-endorsement-profile">
@@ -1676,11 +1695,11 @@ associated with Instance ID <code>4ca3...d296</code>.<a href="#section-3.1.4-4" 
           <h4 id="name-arm-cca-realm-endorsement-p">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-arm-cca-realm-endorsement-p" class="section-name selfRef">Arm CCA Realm Endorsement Profile</a>
           </h4>
-<p id="section-3.2.2-1">Arm CCA realm Endorsements are carried in a CoMID inside a CoRIM.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-1">Arm CCA Realm Endorsements are carried in a CoMID inside a CoRIM.<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2.2-2">The profile attribute in the CoRIM MUST be present and MUST have a single entry
-set to the uri <code>http://arm.com/cca/realm/1</code> as shown in <a href="#ex-cca-realm-profile" class="auto internal xref">Figure 7</a>.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
+set to the uri <code>http://arm.com/cca/realm/1</code> as shown in <a href="#ex-cca-realm-profile" class="auto internal xref">Figure 8</a>.<a href="#section-3.2.2-2" class="pilcrow">¶</a></p>
 <span id="name-cca-realm-profile-version-1"></span><div id="ex-cca-realm-profile">
-<figure id="figure-7">
+<figure id="figure-8">
             <div class="alignLeft art-text artwork" id="section-3.2.2-3.1">
 <pre>
 / corim-map / {
@@ -1691,7 +1710,7 @@ set to the uri <code>http://arm.com/cca/realm/1</code> as shown in <a href="#ex-
 }
 </pre>
 </div>
-<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
 <a href="#name-cca-realm-profile-version-1" class="selfRef">CCA realm profile version 1, CoRIM profile</a>
             </figcaption></figure>
 </div>
@@ -1710,9 +1729,87 @@ CCA Realm.<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
 3. Realm Personalization Value (RPV)<a href="#section-3.2.3-2" class="pilcrow">¶</a></p>
 <p id="section-3.2.3-3">RIM and REMs are encoded in a <code>measurement-values-map</code> (in a <code>measurement-map</code>) of a CoMID <code>reference-triple-record</code>. Inside <code>measurement-values-map</code> these measurements are carried as <code>integrity-registers</code> map. Integrity Registers map is used to group together one or more measured objects pertaining to an environment. Please refer <span>[<a href="#CoRIM" class="cite xref">CoRIM</a>]</span> for details about Integrity Register map.<a href="#section-3.2.3-3" class="pilcrow">¶</a></p>
 <p id="section-3.2.3-4">All the measured objects in an Integrity Registers map are explicitly named. In the context of Realms, the measured objects are RIM and REMs. Inside Integrity Register map, RIM is uniquely identified by the name "rim", while REMs which is an array of measurements from 1..4 are uniquely identified by the coresponding name "rem0".."rem3".<a href="#section-3.2.3-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.3-5">Realm Personalization Value, (RPV) is an optional identity used by a Realm endorser to uniquely identify multiple Realms which all have same RIM. RPV if provided is a fixed length 64 bytes identifier. In this profile, RPV is represented using Raw Value Measurements in a <code>measurement-values-map</code>, with raw value type choice set to <code>tagged-bytes</code>.<a href="#section-3.2.3-5" class="pilcrow">¶</a></p>
+<p id="section-3.2.3-5">Realm Personalization Value, (RPV) is an optional identity used by a Realm endorser to uniquely identify multiple Realms which all have same RIM. RPV if provided is a fixed length 64 bytes identifier. In this profile, RPV is represented using Raw Value Measurements in a <code>measurement-values-map</code>, with raw value type choice set to <code>tagged-bytes</code>. See <a href="#ex-cca-realm-refval" class="auto internal xref">Figure 9</a><a href="#section-3.2.3-5" class="pilcrow">¶</a></p>
 <p id="section-3.2.3-6">$raw-value-type-choice /= tagged-bytes<a href="#section-3.2.3-6" class="pilcrow">¶</a></p>
 <p id="section-3.2.3-7">Given below is the complete example of a Realm Endorsements.<a href="#section-3.2.3-7" class="pilcrow">¶</a></p>
+<span id="name-cca-realm-identifiers-2"></span><div id="ex-cca-realm-refval">
+<figure id="figure-9">
+            <div class="alignLeft art-text artwork" id="section-3.2.3-8.1">
+<pre>
+/ concise-mid-tag / {
+  / comid.tag-identity / 1 : {
+    / comid.tag-id / 0 : h'3f06af63a93c11e4979700505690773f'
+  },
+  / comid.triples / 4 : {
+    / comid.reference-triples / 0 : [
+      [
+        / environment-map / {
+            / comid.class / 0 : {
+                / comid.class-id / 0 :
+                    / tagged-uuid-type / 37(
+                        h'67b28b6c34cc40a19117ab5b05911e37'
+                        ),
+                / comid.vendor / 1 : "Workload Client Ltd"
+              },
+            / comid.instance / 1 :
+                / tagged-bytes / 560(
+                    h'67b28b6c39cc40a19117ab5b05911e37'
+                    )
+           },
+        [
+        / measurement-map / {
+            / comid.mval / 1 : {
+              / comid.raw-value / 4 : {
+                / tagged-bytes / 560(
+                    h'ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB
+ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB',
+                  )
+              },
+              / comid.integrity-registers / 14 : {
+                "rim": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'44aa336af4cb14a879432e53dd6571c7fa9bccafb75f488259262d6ea3a4d91b'
+                ]
+              ],
+                "rem0": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e58dd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem1": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e59dd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem2": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e5add6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ],
+                "rem3": [
+                [
+                  / hash-alg-id / 1, / sha256 /
+                  / hash-value / h'50aa341af9cb20a879440e5bdd6581c14fa14bccafb75f488259262d6ea3a4d9'
+                ]
+              ]
+            }
+          }
+        }
+       ]
+      ]
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<a href="#name-cca-realm-identifiers-2" class="selfRef">CCA realm identifiers</a>
+            </figcaption></figure>
+</div>
 </section>
 </div>
 </section>
@@ -1819,42 +1916,6 @@ CCA Realm.<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
 </td>
               <td class="text-left" rowspan="1" colspan="1">uri</td>
               <td class="text-left" rowspan="1" colspan="1">The CoRIM profile specified by this document</td>
-            </tr>
-          </tbody>
-        </table>
-</div>
-</section>
-</div>
-<div id="comid-codepoints">
-<section id="section-5.3">
-        <h3 id="name-comid-codepoints">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-comid-codepoints" class="section-name selfRef">CoMID Codepoints</a>
-        </h3>
-<p id="section-5.3-1">IANA is requested to register the following codepoints to the "CoMID Triples
-Map" registry.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<span id="name-psa-comid-triples"></span><div id="tbl-psa-comid-triples">
-<table class="center" id="table-4">
-          <caption>
-<a href="#table-4" class="selfRef">Table 4</a>:
-<a href="#name-psa-comid-triples" class="selfRef">PSA CoMID Triples</a>
-          </caption>
-<thead>
-            <tr>
-              <th class="text-left" rowspan="1" colspan="1">Index</th>
-              <th class="text-left" rowspan="1" colspan="1">Item Name</th>
-              <th class="text-left" rowspan="1" colspan="1">Specification</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">4</td>
-              <td class="text-left" rowspan="1" colspan="1">comid.psa-cert-triples</td>
-              <td class="text-left" rowspan="1" colspan="1">RFCTHIS</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">5</td>
-              <td class="text-left" rowspan="1" colspan="1">comid.psa-swrel-triples</td>
-              <td class="text-left" rowspan="1" colspan="1">RFCTHIS</td>
             </tr>
           </tbody>
         </table>
