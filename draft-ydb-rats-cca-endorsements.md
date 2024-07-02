@@ -78,10 +78,7 @@ Arm CCA attestation scheme is a composite attestation scheme which comprises a C
 There are three types of CCA Platform Endorsements:
 
 * Reference Values ({{sec-ref-values}}), i.e., measurements of the CCA Platform firmware.
-* Attestation Verification Claims ({{sec-keys}}), i.e., cryptographic keys
-  that can be used to verify signed attestation token produced by the CCA platform, along
-  with the identifiers that bind the keys to their platform instances.
-* Certification status of CCA platform implementation
+* Attestation Verification Claims ({{sec-keys}}), i.e., cryptographic keys that can be used to verify signed attestation token produced by the CCA platform, along with the identifiers that bind the keys to their platform instances.
 
 ### Arm CCA Platform Endorsement Profile
 
@@ -133,9 +130,10 @@ Consistently providing a product identifier is RECOMMENDED.
 
 Reference Values carry measurements and other metadata associated with the updatable firmware of
 CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
-* CCA system security domain
-* Monitor security domain
-* Realm Management Security domain
+
+- CCA system security domain
+- Monitor security domain
+- Realm Management Security domain
 
 When appraising Evidence, the Verifier compares Reference Values against:
  -  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of {{CCA-TOKEN}}).
@@ -247,8 +245,9 @@ Reference Values carry measurements and other metadata associated with the
 CCA Realm.
 
 Realm reference values comprise of:
+
 1. Realm Initial Measurements (RIM)
-2. Realm Extended Measurements (REMs)  
+2. Realm Extended Measurements (REMs)
 3. Realm Personalization Value (RPV)
 
 RIM and REMs are encoded in a `measurement-values-map` (in a `measurement-map`) of a CoMID `reference-triple-record`. Inside `measurement-values-map` these measurements are carried as `integrity-registers` map. Integrity Registers map is used to group together one or more measured objects pertaining to an environment. Please refer {{CoRIM}} for details about Integrity Register map.

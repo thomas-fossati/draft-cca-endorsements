@@ -93,10 +93,7 @@ appear in all capitals, as shown here.
 
 <t><list style="symbols">
   <t>Reference Values (<xref target="sec-ref-values"/>), i.e., measurements of the CCA Platform firmware.</t>
-  <t>Attestation Verification Claims (<xref target="sec-keys"/>), i.e., cryptographic keys
-that can be used to verify signed attestation token produced by the CCA platform, along
-with the identifiers that bind the keys to their platform instances.</t>
-  <t>Certification status of CCA platform implementation</t>
+  <t>Attestation Verification Claims (<xref target="sec-keys"/>), i.e., cryptographic keys that can be used to verify signed attestation token produced by the CCA platform, along with the identifiers that bind the keys to their platform instances.</t>
 </list></t>
 
 <section anchor="arm-cca-platform-endorsement-profile"><name>Arm CCA Platform Endorsement Profile</name>
@@ -170,10 +167,13 @@ Consistently providing a product identifier is RECOMMENDED.</t>
 <section anchor="sec-ref-values"><name>Reference Values</name>
 
 <t>Reference Values carry measurements and other metadata associated with the updatable firmware of
-CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
-* CCA system security domain
-* Monitor security domain
-* Realm Management Security domain</t>
+CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes</t>
+
+<t><list style="symbols">
+  <t>CCA system security domain</t>
+  <t>Monitor security domain</t>
+  <t>Realm Management Security domain</t>
+</list></t>
 
 <t>When appraising Evidence, the Verifier compares Reference Values against:
  -  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of <xref target="CCA-TOKEN"/>).
@@ -331,10 +331,13 @@ set to the uri <spanx style="verb">http://arm.com/cca/realm/1</spanx> as shown i
 <t>Reference Values carry measurements and other metadata associated with the
 CCA Realm.</t>
 
-<t>Realm reference values comprise of:
-1. Realm Initial Measurements (RIM)
-2. Realm Extended Measurements (REMs)<br />
-3. Realm Personalization Value (RPV)</t>
+<t>Realm reference values comprise of:</t>
+
+<t><list style="numbers">
+  <t>Realm Initial Measurements (RIM)</t>
+  <t>Realm Extended Measurements (REMs)</t>
+  <t>Realm Personalization Value (RPV)</t>
+</list></t>
 
 <t>RIM and REMs are encoded in a <spanx style="verb">measurement-values-map</spanx> (in a <spanx style="verb">measurement-map</spanx>) of a CoMID <spanx style="verb">reference-triple-record</spanx>. Inside <spanx style="verb">measurement-values-map</spanx> these measurements are carried as <spanx style="verb">integrity-registers</spanx> map. Integrity Registers map is used to group together one or more measured objects pertaining to an environment. Please refer <xref target="CoRIM"/> for details about Integrity Register map.</t>
 
@@ -654,96 +657,95 @@ lsnI63odEKZTUgqi05rWR3Hf3xs3paTbGNHuT9izTPi1CMYeCmOx9TXzlzCB
 uCAPkGTgJ5pm3IG5LI2TyJROv4XAiDZTMuu/wqB0aNZTj70gu1BWA+YGTDVR
 JA2tRDvswGZJvixviaeED2grT9oRxXGjPpl8iywFJq7tN1Mi0N4GDtV5Vhyr
 2ad0vih60EnSy2Uq4O/tGk4DeNn5DoSjL4FI7Yu+l77o4P4e5QQ+ypXe6eHh
-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
-wfO9OMFpdR/wP0S1g/avQgAA
+sMVCT3gt8AY8A08tWdCmbi8/D9PVHUe9/LIBAslgwU4jHq7MRmDq9hY1N5hJ
+j+fzGJV4k0l9vsUFtywLF6i6tpgohJW8XPWYwYYA2ywKO5CBCb2p2mwGUIZG
+5P4Jfg7TQk5hjBjJFyiaZ0+Ihr2VrrFQc7NMSZdQcj5P01CaIoAv8OjgPVP0
+ppcXZ+jjM6AUFRxdqSetXTteOAJwO5tcSF+lXTB5zRlOExn5LWCMni35LS6V
+QRSGt2Eo3TqZyBWzDKAhmyKmAEihwQOY7lGWBUedaeGEYLP7e/GBzFrz5Sqa
+yB38+uuvzhEjfOMCcGNH7B7QgnriaeqPWO+E/cQQR7Be92Bv1857hzDlZ1rA
+8zx25DzQBuhcdhAhgczzvdLB6zHQogx1ptNSx6UG9tArPSXYjIHnfQ+4CM/M
+nlTydWmSu2EAy51zf7lbSVwKJTk5qJJBtp6wI0f6eUDfHCMQ6TRnmzj8ZVNx
+LoWWe2xSGnKKIfY+RrGCfEukXqzWkTCwkl2csYMMfEwpXvTwfxkRrJhxyBxJ
+DEQ3sw059QjI1v7JEAlHKR06KuGKx5s5J3CYHiljSenUMxrPNut1BPbilKRy
+UHNpf919hi/BwA/Jj/MSIaC5Fxakwp0gn6EptbPIWsrgwErJ7TrTL4g7ELyL
+311/mQAKn2I0g8QGOCGsANtGUXKXNVhQCHug2jycSAvCwbC0r16bPQcXB8wx
+Lwv/LsB4HCfni4UIds9/NvSG7fZB8/ih4zQSz46es0cX3mmIihdtiOcfOL7/
+hH6RBX4r0OEh5qniCR0O6pqv8xLjo1HFuOOLNOfgrEq7lhkBGwSZhFK1fC4T
+jieCGMBkMiXnqWCH3r1ObNk+NcEQsiDQxibCXuiBizOn2ez6DWZHWA3MYb3z
+jGUEycrxjwDEdg3kR2Cx82QjIZ80t9l/w850oFrb0xAWbUH88JNABi4QzFTE
+t2GaxLgZOv2n4gUqugkVlXetgAG5lie9xhFrsxN6XhlBPaNBGsJBS2eNCRwx
+1H81hbHl/hBS4WEwHHSD4XgYjNpDfzjA70Mx6g8BqJupjMGE+VDQxH436LUr
+fzr7au5hy5Ag6bslBwZfO0D63uT08hxrEd5edZ7Ml44Y6+K8q4QH6SaOwQ11
+vPYezH1oWcdhdIaWdUosb0TB72Bg+F3utzuGn77Pe6I/H7Rn827/2O+NR8ej
+drcdDI/n86A98M3E4+PRcDQadGDesD/w+bjbmw9GfHw8E37QHQ8l24ePxOOn
+PIDSQWk2ZP5v1vgRAPlUnt2UdHpKBzTVHkDZu3SodyKKAHAnCwH6mspECjXa
+KSdpRYC0Ap8FZ4sgAIlqFkJ2HOdgDAAOIInGsgVX+DK3FwDPYaWSChlWY5HB
+Bha+dpxaxEIguC3DbcoRkS14nHNKrasOhYDbGodmcLwai2MaV+KK3VTzDpVl
+RRE6lluZGBqorVjcUh6KWyx5GtDCSJLZhZK0WGYGMfk22EHESEqgayYyF1Jl
+EMhZXKugwjJVkIQsaQWuGgZNrak2UitLXVemOD9AJq1zOhSZrn/IWG2qJ0g1
+UJ/V8yC+4GhdYFQuo3dUrabkEq+TeU7cn1rc1xVJJSXNzntUd94ebmr2ZIjL
+1YZmRR8LaotNKp355+45aNpTQlRL6QivWJ4dbK8YlI69iAXO1JS1XBkWQMcB
+5QdTCJLXIaXYDQugGcs97JTHsVW/VeQpO/egdaTVgH0DcCxbjwMPMX8XQUuZ
+sQikd5gJygVV2pPx1S7U3BAGHfy6V6nm7amgSNDgSbJl0Qq1MALnBE5G14/q
+8rT5Uclf2X1xPQXsTeulscq6LCG5crM7nAC+GSQpuarCUjPDYNHSewAnMQxj
+omaLViLNr6mOr4Z1rlV+Sgl8Sgt9TQ+WPFtKPAl+sfSghnQhrtkP+seVB8O+
+XKFOGOs4JZJY36kQwwZ2ICvYrYSw6x8Ky9eoFQUDKJWDZHzjDfDg10koq8D0
+pHr+iHVQYuKXTQiKhAuSUiaZSemnpYCa3blGuvL1XZW8Zi9DJd46HVQdqKZs
+WCpeQGSImzQLY48uOtgKe6Sj5CPJVMXt2lC0IavS+u2KqBDnE9lVWYtdmGE0
+WQGlqkJTftQ5KD3GtOix3a30qPReoxYhEU9oEjtHTjINhTDS8k2eYA9AIvMZ
+hSHltqYKOr4X26lRlqqrVT4j5XeP+/ggXEAqkxF3xi3IRZ3SojIgyrWVLpXf
+BXfMt1KhIFxR/sVzFsESOTl7qjp5j7w5+dG8SIWwfMnj4k0WztlqE+XoUJl6
+nx0kM5yvIVEQzknBcoZ+BCDMIgGYsFxB0q8sk1y+cZyFVosPAPw8qaAUJe4a
+MxeY+v/Jy/+B5IX88eeYLJUPH68KmGSAauCOM4mfeEMViGWJ4tYexoZZJR1w
+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
 
 -->
 
