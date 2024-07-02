@@ -117,7 +117,7 @@ Attestation Verification Claims are associated with a CCA platform instance by m
 These identifiers are typically found in the subject of a CoMID triple, encoded in an `environment-map` as shown in {{ex-cca-platform-id}}.
 
 ~~~
-{::include examples/cca-platform-identification.diag}
+{::include examples/platform-identification.diag}
 ~~~
 {: #ex-cca-platform-id title="Example CCA Platform Identification" }
 
@@ -128,16 +128,16 @@ Consistently providing a product identifier is RECOMMENDED.
 ### Reference Values
 {: #sec-ref-values}
 
-Reference Values carry measurements and other metadata associated with the updatable firmware of
-CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
+Reference Values carry measurements and other metadata associated with the updatable firmware of CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
 
 - CCA system security domain
 - Monitor security domain
 - Realm Management Security domain
 
 When appraising Evidence, the Verifier compares Reference Values against:
- -  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of {{CCA-TOKEN}}).
- - the value set in the platform configuration of the CCA platform token (see Section A7.2.3.2.5 of {{CCA-TOKEN}}).
+
+a.  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of {{CCA-TOKEN}}).
+b. the value set in the platform configuration of the CCA platform token (see Section A7.2.3.2.5 of {{CCA-TOKEN}}).
 
 Each measurement is encoded in a `measurement-map` of a CoMID
 `reference-triple-record`.  Since a `measurement-map` can encode one or more
@@ -146,7 +146,8 @@ as needed, provided they belong to the same CCA platform identified in the subje
 the "reference value" triple.  A single `reference-triple-record` SHALL
 completely describe the CCA platform measurements.
 
-The identifier of a measured software component is encoded in a `arm-swcomp-id` object as follows {{ex-swcomp-id}}:
+#### CCA Platform Software Components
+For the Reference Values of CCA platform software components the identifier of a measured software component is encoded in a `arm-swcomp-id` object as follows {{ex-swcomp-id}}:
 
 ~~~
 {::include cca-ext/swcomp-id.cddl}
@@ -166,12 +167,22 @@ In order to support CCA Reference Value identifiers, the CoMID type
 and automatically bound to the `comid.mkey` in the `measurement-map`.
 
 The raw measurement is encoded in a `digests-type` object in the
-`measurement-values-map`.  The `digests-type` array MUST contain at least one entry. The `digests-type` array MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist. Refer below {{ex-cca-platform-ident}}.
+`measurement-values-map`.  The `digests-type` array MUST contain at least one entry. The `digests-type` array MAY contain more than one entry if multiple digests (obtained with different hash algorithms) of the same measured component exist. Refer below {{ex-cca-platform-refval}}.
+
+#### CCA Platform Configuration
+
+A Reference values for CCA platform configuration describes the set of chosen implementation options of the CCA platform. As an example, these may include a description of the level of physical memory protection which is provided.
+
+CCA platform configuration reference values represent vendor specific variable length data. As a result, in the CCA Platform CoRIM profile, it is represented in a `measurement-values-map` using `raw-values` set to `tagged-bytes` to represent platform configutation using variable length byte string.
+
+$raw-value-type-choice /= tagged-bytes
+
+The complete representation of a CCA Platform Reference Values is given in {{ex-cca-platform-refval}}.
 
 ~~~
-{::include examples/cca-platform-identification.diag}
+{::include examples/platform-refval.diag}
 ~~~
-{: #ex-cca-platform-ident title="Example SW Component ID Extension" }
+{: #ex-cca-platform-refval title="Example CCA Reference Values" }
 
 ### Attestation Verification Claims
 {: #sec-keys}

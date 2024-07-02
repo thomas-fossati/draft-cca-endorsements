@@ -28,6 +28,18 @@
                 / hash-value /  h'44aa336af4cb14a879432e53dd6571c7fa9bccafb75f488259262d6ea3a4d91b'
               ]
             }
+          },
+          / measurement-map / {
+            / comid.mkey / 0 : 602({
+              / "cca.platform-config-id" / 1 : "any-value"
+            }),
+            / comid.mval / 1 : {
+              / comid.raw-value / 4 : {
+               / tagged-bytes / 560(
+                 h'67b28b6c39cc40a19117ab5b05911e37'
+                )
+              }
+            }
           }
         ]
       ]
