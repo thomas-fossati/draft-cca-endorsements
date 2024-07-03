@@ -305,6 +305,7 @@ IANA is requested to register the following profile value in the
 
 
 # Acknowledgements
-{: numbered="no"}
+
+The authors would like to thank Simon Frost (Simon.Frost@arm.com) & Sergei Trofimov (Sergei.Trofimov@arm.com) for their valuable contributions for review and feedback.
 
 <cref>TODO</cref>
