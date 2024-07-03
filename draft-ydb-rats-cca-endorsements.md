@@ -198,19 +198,15 @@ Each verification key is provided alongside the corresponding CCA platform Insta
 and Implementation IDs (and, possibly, a CCA platform product identifier) in an
 `attest-key-triple-record`.  Specifically:
 
-* The Instance and Implementation IDs are encoded in the environment-map as
-  shown in
-* The IAK public key is carried in the `comid.key` entry in the
-  `verification-key-map`.  The IAK public key is a PEM-encoded
-  SubjectPublicKeyInfo {{!RFC5280}}.  There MUST be only one
-  `verification-key-map` in an `attest-key-triple-record`;
-* The optional `comid.keychain` entry MUST NOT be set by a CoMID producer that
-  uses the profile described in this document, and MUST be ignored by a CoMID
-  consumer that is parsing according to this profile.
+* The Instance and Implementation IDs are encoded in the environment-map as shown in {{ex-cca-platform-id}}
+* The IAK public key is set using `$crypto-key-type-choice` set to tagged-pkix-base64-key-type. The IAK public key is a PEM-encoded SubjectPublicKeyInfo {{!RFC5280}}. There MUST be only one key in an `attest-key-triple-record`;
 
-The example in  shows the CCA Endorsement
-of type Attestation Verification Claim carrying a secp256r1 EC public IAK
-associated with Instance ID `4ca3...d296`.
+The example in {{ex-cca-platform-iak}} shows the CCA Endorsement of type Attestation Verification Key carrying a secp256r1 EC public IAK associated with Instance ID `4ca3...d296`.
+
+~~~
+{::include examples/platform-iak.diag}
+~~~
+{: #ex-cca-platform-iak title="Example CCA Platform Attestation Verification Key" }
 
 ## Arm CCA Realm Endorsements
 
