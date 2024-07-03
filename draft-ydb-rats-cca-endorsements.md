@@ -75,7 +75,7 @@ Arm CCA attestation scheme is a composite attestation scheme which comprises a C
 
 ## Arm CCA Platform Endorsements
 
-There are three types of CCA Platform Endorsements:
+There are two types of CCA Platform Endorsements:
 
 * Reference Values ({{sec-ref-values}}), i.e., measurements of the CCA Platform firmware.
 * Attestation Verification Claims ({{sec-keys}}), i.e., cryptographic keys that can be used to verify signed attestation token produced by the CCA platform, along with the identifiers that bind the keys to their platform instances.
@@ -95,7 +95,7 @@ set to the uri `http://arm.com/cca/ssd/1` as shown in {{ex-cca-platform-profile}
 ### Arm CCA Platform Endorsements linkage to CCA Platform
 {: #sec-cca-rot-id}
 
-Each CCA Platform Endorsement - be it a Reference Value, Attestation Verification Claim
+Each CCA Platform Endorsement - be it a Reference Value or Attestation Verification Claim
 is associated with a unique CCA platform identifier. A CCA platform
 identifier known as CCA Platform Implementation ID (see Section A7.2.3.2.3 of {{CCA-TOKEN}}) 
 uniquely identifies a class of CCA platform to which the manufacturer/endorser links the supplied
@@ -128,7 +128,7 @@ Consistently providing a product identifier is RECOMMENDED.
 ### Reference Values
 {: #sec-ref-values}
 
-Reference Values carry measurements and other metadata associated with the updatable firmware of CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components on a CCCA enabled system. This includes
+Reference Values carry measurements and other metadata associated with the updatable firmware of CCA platform. The CCA platform is a collective term used to identify all the hardware and firmware components that comprise a CCA system. Specifically these include the following:
 
 - CCA system security domain
 - Monitor security domain
@@ -136,13 +136,13 @@ Reference Values carry measurements and other metadata associated with the updat
 
 When appraising Evidence, the Verifier compares Reference Values against:
 
-a.  the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of {{CCA-TOKEN}}).
+a. the values found in the Software Components of the CCA platform token (see Section A7.2.3.2.7 of {{CCA-TOKEN}}).
+
 b. the value set in the platform configuration of the CCA platform token (see Section A7.2.3.2.5 of {{CCA-TOKEN}}).
 
 Each measurement is encoded in a `measurement-map` of a CoMID
 `reference-triple-record`.  Since a `measurement-map` can encode one or more
-measurements, a single `reference-triple-record` can carry as many measurements
-as needed, provided they belong to the same CCA platform identified in the subject of
+measurements, a single `reference-triple-record` can carry as many measurements as needed, provided they belong to the same CCA platform identified in the subject of
 the "reference value" triple.  A single `reference-triple-record` SHALL
 completely describe the CCA platform measurements.
 
@@ -171,13 +171,13 @@ The raw measurement is encoded in a `digests-type` object in the
 
 #### CCA Platform Configuration
 
-A Reference values for CCA platform configuration describes the set of chosen implementation options of the CCA platform. As an example, these may include a description of the level of physical memory protection which is provided.
+A Reference value for CCA platform configuration describes the set of chosen implementation options of the CCA platform. As an example, these may include a description of the level of physical memory protection which is provided.
 
-CCA platform configuration reference values represent vendor specific variable length data. As a result, in the CCA Platform CoRIM profile, it is represented in a `measurement-values-map` using `raw-values` set to `tagged-bytes` to represent platform configutation using variable length byte string.
+CCA platform configuration reference value represent vendor specific variable length data. As a result, in the CCA platform CoRIM profile, it is represented in a `measurement-values-map` using `raw-values` set to `tagged-bytes` to express a variable length byte string, representing platform configuration data.
 
 $raw-value-type-choice /= tagged-bytes
 
-The complete representation of a CCA Platform Reference Values is given in {{ex-cca-platform-refval}}.
+The complete representation of CCA Platform Reference Values is given in {{ex-cca-platform-refval}}.
 
 ~~~
 {::include examples/platform-refval.diag}
@@ -187,12 +187,10 @@ The complete representation of a CCA Platform Reference Values is given in {{ex-
 ### Attestation Verification Claims
 {: #sec-keys}
 
-An Attestation Verification Claim carries the verification key associated with
+Attestation Verification Claim carries the verification key associated with
 the Initial Attestation Key (IAK) of a CCA platform. When appraising Evidence,
 the Verifier uses the Implementation ID and Instance ID claims (see
-{{sec-cca-rot-id}}) to retrieve the verification key that it SHALL use to check
-the signature on the CCA platform token.  This allows the Verifier to prove (or disprove)
-the Attester's claimed identity.
+{{sec-cca-rot-id}}) to retrieve the verification key that it SHALL use to check the signature on the CCA platform token.  This allows the Verifier to prove (or disprove) the Attester's claimed identity.
 
 Each verification key is provided alongside the corresponding CCA platform Instance
 and Implementation IDs (and, possibly, a CCA platform product identifier) in an
@@ -218,7 +216,7 @@ Please note that there are no Realm Trust Anchor Endorsements needed from supply
 
 ### Realm Endorsements linkage to Realm
 
-Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a realm its Endorsements are associated to this unique instance. The realm instance is a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an `environment-map` with `$instance-id-type-choice` set to `tagged-bytes`, i.e. An opaque, variable-length byte string. In this profile of CCA Endorsements, the Realm Initial Measurements are set in `tagged-bytes` to represent Realm instance.
+Each Realm has a unique execution context and hence a unique Realm instance. Each Realm is uniquely identified in the Arm CCA system. For a Realm its Endorsements are associated to this unique instance. The Realm instance is a vendor defined variable length identifier. Hence in this profile, it is represented in a CoMID inside an `environment-map` with `$instance-id-type-choice` set to `tagged-bytes`, i.e. an opaque, variable-length byte string. In this profile of CCA Endorsements, the Realm Initial Measurements are set in `tagged-bytes` to represent Realm instance.
 
 When supplying Realm Endorsements, a supplier of one or more Realms may wish to identify itself. Hence the following class related elements in the `environment-map` of a  `comid` can be used. See {{ex-cca-realm-identifiers}}
 
@@ -261,7 +259,7 @@ RIM and REMs are encoded in a `measurement-values-map` (in a `measurement-map`) 
 
 All the measured objects in an Integrity Registers map are explicitly named. In the context of Realms, the measured objects are RIM and REMs. Inside Integrity Register map, RIM is uniquely identified by the name "rim", while REMs which is an array of measurements from 1..4 are uniquely identified by the coresponding name "rem0".."rem3".
 
-Realm Personalization Value, (RPV) is an optional identity used by a Realm endorser to uniquely identify multiple Realms which all have same RIM. RPV if provided is a fixed length 64 bytes identifier. In this profile, RPV is represented using Raw Value Measurements in a `measurement-values-map`, with raw value type choice set to `tagged-bytes`. See {{ex-cca-realm-refval}}
+Realm Personalization Value, (RPV) is an optional identity used by a Realm endorser to uniquely identify multiple Realms which all have the same RIM. RPV if provided is a fixed length 64 bytes identifier. In this profile, RPV is represented using Raw Value Measurements in a `measurement-values-map`, with raw value type choice set to `tagged-bytes`. See {{ex-cca-realm-refval}}
 
 $raw-value-type-choice /= tagged-bytes
 
