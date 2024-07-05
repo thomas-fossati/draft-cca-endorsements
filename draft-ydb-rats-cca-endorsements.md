@@ -63,7 +63,7 @@ such CCA Endorsements as a profile of the CoRIM data model {{CoRIM}}.
 
 {::boilerplate bcp14}
 
-The reader is assumed to be familiar with the terms defined in  of
+The reader is assumed to be familiar with the terms defined in Section A7.2.1 of
 {{CCA-TOKEN}} and in Section 4 of {{RATS-ARCH}}.
 
 # Arm CCA Endorsements
